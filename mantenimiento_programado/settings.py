@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "mantenimiento",
 ]
 
@@ -80,7 +81,7 @@ DATABASES = {
         "NAME": "mantenimiento_db",
         "USER": "admin_mantenimiento",
         "PASSWORD": "admin_mantenimiento",
-        "HOST": "localhost",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
