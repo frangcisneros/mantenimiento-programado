@@ -1,0 +1,20 @@
+version: '1'
+
+services:
+    db:
+        image: postgres:17.4
+        environment:
+            POSTGRES_DB: mantenimiento_db
+            POSTGRES_USER: admin_mantenimiento
+            POSTGRES_PASSWORD: admin_mantenimiento
+        ports: -"5432:5432"
+
+    web:
+        build: .
+        command: python3 manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/app
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
