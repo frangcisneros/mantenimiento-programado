@@ -1,57 +1,64 @@
-from typing import Any
 from django.db import models
 
 
+class TipoMantenimiento(models.Model):
+    descripcion = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.descripcion
+
+
+class Encargado(models.Model):
+    # Agregamos un campo "nombre" para identificar al encargado.
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+
 class Maquina(models.Model):
+    # Django crea automáticamente un campo "id" si no defines uno.
+    # Si necesitas un nombre específico, puedes declararlo así:
     id_maquina = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=100)
-    id_ultima_tarea = models.ForeignKey(
+    # Renombramos el campo a "ultima_tarea" para indicar la relación.
+    ultima_tarea = models.ForeignKey(
         "TareaMantenimiento",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="ultima_tarea_maquina",
+        related_name="maquinas_con_ultima_tarea",
     )
 
-
-class TareaMantenimiento(models.Model):
-    id_tarea = models.AutoField(primary_key=True)
-    id_tipo_mantenimiento = models.ForeignKey(
-        "TipoMantenimiento",
-        on_delete=models.CASCADE,
-        related_name="tareas_mantenimiento",
-    )
-    id_maquina = models.ForeignKey(
-        "Maquina",
-        on_delete=models.CASCADE,
-        related_name="tareas_maquina",
-    )
-    id_pieza = models.ForeignKey(
-        "Pieza",
-        on_delete=models.CASCADE,
-        related_name="tareas_pieza",
-    )
-    id_encargado = models.ForeignKey(
-        "Encargado",
-        on_delete=models.CASCADE,
-        related_name="tareas_encargado",
-    )
-    fecha = models.DateField()
+    def __str__(self):
+        return f"Maquina {self.id_maquina} - {self.tipo}"
 
 
 class Pieza(models.Model):
     id_pieza = models.AutoField(primary_key=True)
-    id_maquina = models.ForeignKey(
-        "Maquina",
-        on_delete=models.CASCADE,
-        related_name="pieza_maquina",
+    # Relación a Maquina: renombramos el campo a "maquina".
+    maquina = models.ForeignKey(
+        Maquina, on_delete=models.CASCADE, related_name="piezas"
     )
 
-
-class TipoMantenimiento(models.Model):
-    id_tipo_mantenimiento = models.AutoField(primary_key=True)
-    descripcion = models.CharField(max_length=100)
+    def __str__(self):
+        return f"Pieza {self.id_pieza} de {self.maquina}"
 
 
-class Encargado(models.Model):
-    id_encargado = models.AutoField(primary_key=True)
+class TareaMantenimiento(models.Model):
+    id_tarea = models.AutoField(primary_key=True)
+    # Renombramos campos para que representen claramente la relación
+    tipo_mantenimiento = models.ForeignKey(
+        TipoMantenimiento, on_delete=models.CASCADE, related_name="tareas"
+    )
+    maquina = models.ForeignKey(
+        Maquina, on_delete=models.CASCADE, related_name="tareas"
+    )
+    pieza = models.ForeignKey(Pieza, on_delete=models.CASCADE, related_name="tareas")
+    encargado = models.ForeignKey(
+        Encargado, on_delete=models.CASCADE, related_name="tareas"
+    )
+    fecha = models.DateField()
+
+    def __str__(self):
+        return f"Tarea {self.id_tarea} en {self.maquina} el {self.fecha}"

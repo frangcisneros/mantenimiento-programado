@@ -1,35 +1,34 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Maquina, TareaMantenimiento
-from .serializers import MaquinaSerializer
+from rest_framework import viewsets
+from .models import Maquina, TareaMantenimiento, Pieza, TipoMantenimiento, Encargado
+from .serializers import (
+    MaquinaSerializer,
+    TareaMantenimientoSerializer,
+    PiezaSerializer,
+    TipoMantenimientoSerializer,
+    EncargadoSerializer,
+)
 
 
-@api_view(["GET"])
-def lista_maquinas_api(request):
-    maquinas = Maquina.objects.all()
-    serializer = MaquinaSerializer(maquinas, many=True)
-    return Response(serializer.data)
+class MaquinaViewSet(viewsets.ModelViewSet):
+    queryset = Maquina.objects.all()
+    serializer_class = MaquinaSerializer
 
 
-def index(request):
-    return render(request, "mantenimiento/index.html")
+class TareaMantenimientoViewSet(viewsets.ModelViewSet):
+    queryset = TareaMantenimiento.objects.all()
+    serializer_class = TareaMantenimientoSerializer
 
 
-def lista_maquinas(request):
-    maquinas = Maquina.objects.all()
-    return render(request, "mantenimiento/lista_maquinas.html", {"maquinas": maquinas})
+class PiezaViewSet(viewsets.ModelViewSet):
+    queryset = Pieza.objects.all()
+    serializer_class = PiezaSerializer
 
 
-def formulario_creacion_maquina(request):
-    return render(request, "mantenimiento/formulario_creacion_maquina.html")
+class TipoMantenimientoViewSet(viewsets.ModelViewSet):
+    queryset = TipoMantenimiento.objects.all()
+    serializer_class = TipoMantenimientoSerializer
 
 
-def lista_tareas(request):
-    tareas = TareaMantenimiento.objects.all()
-    return render(request, "mantenimiento/lista_tareas.html", {"tareas": tareas})
-
-
-def formulario_creacion_tarea(request):
-    return render(request, "mantenimiento/formulario_creacion_tarea.html")
+class EncargadoViewSet(viewsets.ModelViewSet):
+    queryset = Encargado.objects.all()
+    serializer_class = EncargadoSerializer

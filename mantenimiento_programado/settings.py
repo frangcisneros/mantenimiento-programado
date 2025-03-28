@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,7 +27,7 @@ SECRET_KEY = "django-insecure-vuwpwu1n1gqs6x1tbiji5^b3s)su!ek-h13&@9n4a7!rf^gn&d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -76,30 +77,21 @@ WSGI_APPLICATION = "mantenimiento_programado.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# TODO: hacerlo con variables de entorno
-if "test" in sys.argv:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "mantenimiento_db",
-            "USER": "admin_mantenimiento",
-            "PASSWORD": "admin_mantenimiento",
-            "HOST": "localhost",
-            "PORT": "5432",
-        }
-    }
-
+if config("DOCKER", default="False") == "True":
+    db_host = "db"
 else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "mantenimiento_db",
-            "USER": "admin_mantenimiento",
-            "PASSWORD": "admin_mantenimiento",
-            "HOST": "db",
-            "PORT": "5432",
-        }
+    db_host = config("DB_HOST", default="localhost")
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DB_NAME", default="mantenimiento_db"),
+        "USER": config("DB_USER", default="admin_mantenimiento"),
+        "PASSWORD": config("DB_PASSWORD", default="admin_mantenimiento"),
+        "HOST": db_host,
+        "PORT": config("DB_PORT", default="5432"),
     }
+}
 
 
 # Password validation
