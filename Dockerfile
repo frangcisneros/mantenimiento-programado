@@ -16,4 +16,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Comando para arrancar Gunicorn (ajusta la ruta al WSGI de tu proyecto)
-CMD ["gunicorn", "mantenimiento_programado.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["gunicorn", "main_app.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
