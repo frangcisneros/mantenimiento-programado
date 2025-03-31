@@ -77,18 +77,13 @@ WSGI_APPLICATION = "mantenimiento_programado.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if config("DOCKER", default="False") == "True":
-    db_host = "db"
-else:
-    db_host = config("DB_HOST", default="localhost")
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("DB_NAME", default="mantenimiento_db"),
         "USER": config("DB_USER", default="admin_mantenimiento"),
         "PASSWORD": config("DB_PASSWORD", default="admin_mantenimiento"),
-        "HOST": db_host,
+        "HOST": "db",
         "PORT": config("DB_PORT", default="5432"),
     }
 }

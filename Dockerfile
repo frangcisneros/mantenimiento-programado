@@ -1,23 +1,19 @@
-# Usa una imagen base de Python 
 FROM python:3.13.2-slim
 
-
-# Evita la creación de archivos .pyc y asegura que la salida de logs se muestre en tiempo real
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Establece el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copia el archivo de requisitos y instala las dependencias
+# Copia el archivo de requerimientos e instala dependencias
 COPY requirements.txt /app/
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copia el resto de tu proyecto al directorio de trabajo
+# Copia el resto del proyecto
 COPY . /app/
 
-# Expone el puerto en el que correrá Django (por defecto 8000)
+# Expone el puerto donde Gunicorn atenderá
 EXPOSE 8000
 
-# Define el comando que ejecutará el servidor de Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Comando para arrancar Gunicorn (ajusta la ruta al WSGI de tu proyecto)
+CMD ["gunicorn", "mantenimiento_programado.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
