@@ -1,27 +1,21 @@
 from .base import *
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 DEBUG = False
-
-# TODO: AGREGAR MIS DOMINIOS PARA PRODUCCION
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["192.168.1.33"]  # O el dominio real de la fábrica
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        # TODO: CREAR UNA TABLA PARA PRODUCCION
-        "NAME": "mantenimiento_db",
+        "NAME": "mantenimiento_db_prod",
         "USER": "admin_mantenimiento",
         "PASSWORD": "admin_mantenimiento",
-        "HOST": "db",
+        "HOST": "db_production",  # Conecta al contenedor db_production
         "PORT": "5432",
     }
 }
 
-# ? QUE ES ESTO?
+# Configuraciones de seguridad y optimización para producción
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SESSION_COOKIE_SECURE = True
