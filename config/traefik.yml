@@ -1,0 +1,44 @@
+global:
+  sendAnonymousUsage: true
+
+api:
+  dashboard: true
+  insecure: true
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    watch: true
+    exposedByDefault: false # expone los contenedores por default. Si es false -> muestra solo aquellos que tienen en sus labels "traefik.enable=true"
+
+  # Configuración por archivo
+  file:
+    filename: /etc/traefik/config.yml
+    watch: true # para que traefik detecte cambios en el archivo de configuración
+
+accessLog:
+  filePath: "/var/log/traefik/access.log" # Ruta donde se guardarán los logs
+  bufferingSize: 100 # Tamaño del buffer para los logs
+
+log:
+  level: INFO
+  format: common
+
+entryPoints:
+  http:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+  https:
+    address: ":443"
+  metrics:
+    address: ":9100"
+
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addServicesLabels: true
+    entryPoint: metrics # http://<traefik-host>:9100/metrics

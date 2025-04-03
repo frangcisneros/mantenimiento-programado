@@ -1,0 +1,20 @@
+# proveedor http
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.mantenimiento.localhost`)"
+      service: "api@internal"
+      tls:
+        domains:
+          - main: "mantenimiento.localhost"
+            sans:
+              - "*.mantenimiento.localhost"
+          - main: "mantenimiento.local"
+            sans:
+              - "*.mantenimiento.local"
+
+# para conexiones con certificado tls (https)
+tls:
+  certificates:
+    - certFile: "/etc/certs/cert.pem"
+      keyFile: "/etc/certs/key.pem"
