@@ -1,22 +1,19 @@
 from rest_framework import viewsets
-from .models import Maquina, TareaMantenimiento, Pieza, TipoMantenimiento, Encargado
+from .models import Maquina, Pieza, PiezaMaquina, Mantenimiento, Encargado, Tarea
 from .serializers import (
     MaquinaSerializer,
-    TareaMantenimientoSerializer,
     PiezaSerializer,
-    TipoMantenimientoSerializer,
     EncargadoSerializer,
+    PiezaMaquinaSerializer,
+    MantenimientoSerializer,
+    TareaSerializer,
 )
 
 
 class MaquinaViewSet(viewsets.ModelViewSet):
     queryset = Maquina.objects.all()
+    # este serializer se utiliza para validar los datos
     serializer_class = MaquinaSerializer
-
-
-class TareaMantenimientoViewSet(viewsets.ModelViewSet):
-    queryset = TareaMantenimiento.objects.all()
-    serializer_class = TareaMantenimientoSerializer
 
 
 class PiezaViewSet(viewsets.ModelViewSet):
@@ -24,11 +21,21 @@ class PiezaViewSet(viewsets.ModelViewSet):
     serializer_class = PiezaSerializer
 
 
-class TipoMantenimientoViewSet(viewsets.ModelViewSet):
-    queryset = TipoMantenimiento.objects.all()
-    serializer_class = TipoMantenimientoSerializer
+class PiezaMaquinaViewSet(viewsets.ModelViewSet):
+    queryset = PiezaMaquina.objects.all()
+    serializer_class = PiezaMaquinaSerializer
 
 
 class EncargadoViewSet(viewsets.ModelViewSet):
     queryset = Encargado.objects.all()
     serializer_class = EncargadoSerializer
+
+
+class MantenimientoViewSet(viewsets.ModelViewSet):
+    queryset = Mantenimiento.objects.all()
+    serializer_class = MantenimientoSerializer
+
+
+class TareaViewSet(viewsets.ModelViewSet):
+    queryset = Tarea.objects.all()
+    serializer_class = TareaSerializer
