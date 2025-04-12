@@ -2,7 +2,7 @@ from .base import *
 import os
 
 DEBUG = False
-ALLOWED_HOSTS = ["192.168.1.33"]  # O el dominio real de la fábrica
+ALLOWED_HOSTS = ["*"]  # O el dominio real de la fábrica
 
 DATABASES = {
     "default": {

@@ -1,7 +1,7 @@
 from .base import *
 
-DEBUG = False  # Se suele dejar DEBUG=False en staging para simular producción
-ALLOWED_HOSTS = ["192.168.1.33"]  # O la IP correspondiente de tu LAN
+DEBUG = True  # Se suele dejar DEBUG=False en staging para simular producción
+ALLOWED_HOSTS = ["*"]  # O la IP correspondiente de tu LAN
 
 DATABASES = {
     "default": {
