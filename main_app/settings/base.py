@@ -1,8 +1,19 @@
 from pathlib import Path
 from decouple import config
-import sys
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+
+STATIC_URL = "/static/"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [BASE_DIR / "web" / "static"]
+
+print("STATICFILES_DIRS", STATICFILES_DIRS)
+print("STATIC_ROOT", STATIC_ROOT)
+print("BASE_DIR", BASE_DIR)
+print("STATIC_URL", STATIC_URL)
 
 #! NO SE SI DEJAR ESTO
 SECRET_KEY = "django-insecure-vuwpwu1n1gqs6x1tbiji5^b3s)su!ek-h13&@9n4a7!rf^gn&d"
@@ -20,7 +31,8 @@ INSTALLED_APPS = [
     # * TERCEROS
     "rest_framework",
     # * PROPIOS
-    "mantenimiento",
+    "api",
+    "web",
 ]
 
 MIDDLEWARE = [
@@ -88,7 +100,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = "static/"
 
 # ! NO SE SI DEJAR ESTO
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -40,6 +40,8 @@ services:
             - "8000:80" # Staging en puerto 8000 (en el host)
         volumes:
             - ./nginx.staging.conf:/etc/nginx/nginx.conf:ro
+            - ./staticfiles:/app/staticfiles:ro # Montar el volumen de la aplicación para nginx
+            - ./web:/app/web:ro # Montar el volumen de la aplicación para nginx
         depends_on:
             - web_staging
 

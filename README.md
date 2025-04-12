@@ -2,8 +2,10 @@
 
 docker system prune -a -f
 
-docker-compose up --build
+docker-compose up --build -d
 
-Para ver si las migraciones estan hechas es con showmigrations, si estan hechas las aplicas con migrate
+python manage.py makemigrations
+
+python manage.py migrate api
 
 pip freeze > requirements.txt
