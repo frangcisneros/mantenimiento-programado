@@ -4,10 +4,12 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+DEBUG = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "main_app/static"),)
+STATICFILES_DIRS = [BASE_DIR / "web" / "static"]
+print(STATICFILES_DIRS)
 
 #! NO SE SI DEJAR ESTO
 SECRET_KEY = "django-insecure-vuwpwu1n1gqs6x1tbiji5^b3s)su!ek-h13&@9n4a7!rf^gn&d"
