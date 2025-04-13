@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Maquina, Pieza, PiezaMaquina, Mantenimiento, Encargado, Tarea
+from .models import Maquina, Pieza, Mantenimiento, Encargado, Tarea
 from .serializers import (
     MaquinaSerializer,
     PiezaSerializer,
@@ -20,11 +20,6 @@ class MaquinaViewSet(viewsets.ModelViewSet):
 class PiezaViewSet(viewsets.ModelViewSet):
     queryset = Pieza.objects.all()
     serializer_class = PiezaSerializer
-
-
-class PiezaMaquinaViewSet(viewsets.ModelViewSet):
-    queryset = PiezaMaquina.objects.all()
-    serializer_class = PiezaMaquinaSerializer
 
 
 class EncargadoViewSet(viewsets.ModelViewSet):
