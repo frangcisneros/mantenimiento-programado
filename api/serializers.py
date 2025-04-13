@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Maquina, Pieza, Encargado, PiezaMaquina, Mantenimiento, Tarea
+from .models import Maquina, Pieza, Encargado, Mantenimiento, Tarea, PiezasUtilizadas
 
 
 class MaquinaSerializer(serializers.ModelSerializer):
@@ -20,9 +20,9 @@ class EncargadoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PiezaMaquinaSerializer(serializers.ModelSerializer):
+class PiezasUtilizadasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PiezaMaquina
+        model = PiezasUtilizadas
         fields = "__all__"
 
 

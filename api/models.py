@@ -21,7 +21,6 @@ class Pieza(models.Model):
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.CharField(max_length=100)
-    piezas = models.ManyToManyField(Pieza)
 
 
 # * la clase mantenimiento describe el tipo de mantenimiento, este despues puede ser asignado a una tarea
@@ -51,14 +50,16 @@ class Mantenimiento(models.Model):
 
 class Encargado(models.Model):
     id_encargado = models.AutoField(primary_key=True)
+    # TODO: agregar datos del encargado, nombre y puesto
 
 
 class PiezasUtilizadas(models.Model):
     id_piezas_utilizadas = models.AutoField(primary_key=True)
-    # * la pieza utilizada es una pieza que se utiliza en el mantenimiento, por lo tanto es una foreign key a la tabla pieza
-    id_pieza = models.ForeignKey(Pieza, on_delete=models.CASCADE)
+    pieza = models.ForeignKey(Pieza, on_delete=models.CASCADE)
     # * la tarea en la que se utilizo la pieza, por lo tanto es una foreign key a la tabla tarea
     id_tarea = models.ForeignKey("Tarea", on_delete=models.CASCADE)
+    # * cantidad de la pieza utilizada
+    cantidad = models.IntegerField()
 
 
 # * la clase tarea es el corazon del sistema, es el que se encarga de toda la logica del mantenimiento, a esta se la adjuntan los mantenimientos, las piezas a cambiar y el encargado que lo realiza

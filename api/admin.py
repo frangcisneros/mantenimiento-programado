@@ -1,12 +1,9 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from .models import Maquina, Pieza, Encargado, PiezaMaquina, Mantenimiento, Tarea
+from .models import Maquina, Pieza, Encargado, Mantenimiento, Tarea, PiezasUtilizadas
 
 admin.site.register(Maquina)
 admin.site.register(Pieza)
 admin.site.register(Encargado)
-admin.site.register(PiezaMaquina)
 admin.site.register(Mantenimiento)
 admin.site.register(Tarea)
+admin.site.register(PiezasUtilizadas)
