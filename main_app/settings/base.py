@@ -1,19 +1,13 @@
 from pathlib import Path
 from decouple import config
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-STATICFILES_DIRS = [BASE_DIR / "web" / "static"]
-
-print("STATICFILES_DIRS", STATICFILES_DIRS)
-print("STATIC_ROOT", STATIC_ROOT)
-print("BASE_DIR", BASE_DIR)
-print("STATIC_URL", STATIC_URL)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "main_app/static"),)
 
 #! NO SE SI DEJAR ESTO
 SECRET_KEY = "django-insecure-vuwpwu1n1gqs6x1tbiji5^b3s)su!ek-h13&@9n4a7!rf^gn&d"
@@ -51,7 +45,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # ? TENGO QUE AGREGAR "[BASE_DIR / "templates"]"?
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "web/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -66,19 +60,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "main_app.wsgi.application"
 
-# * ESTO SE SOBREESCRIBE PARA CADA TIPO DE ENTORNO, VOY A DEJAR EL ORIGINAL PERO COMENTADO
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": config("DB_NAME", default="mantenimiento_db"),
-#         "USER": config("DB_USER", default="admin_mantenimiento"),
-#         "PASSWORD": config("DB_PASSWORD", default="admin_mantenimiento"),
-#         "HOST": "db",
-#         "PORT": config("DB_PORT", default="5432"),
-#     }
-# }
-
-DATABASES = {}
+if config("ENVIROMENT") == "local":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DB_NAME", default="mantenimiento_db"),
+            "USER": config("DB_USER", default="admin_mantenimiento"),
+            "PASSWORD": config("DB_PASSWORD", default="admin_mantenimiento"),
+            "HOST": config("DB_HOST", default="localhost"),
+            "PORT": config("DB_PORT", default="5432"),
+        }
+    }
+else:
+    # Configuración para otros entornos (producción, staging, etc.)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DB_NAME"),
+            "USER": config("DB_USER"),
+            "PASSWORD": config("DB_PASSWORD"),
+            "HOST": config("DB_HOST"),
+            "PORT": config("DB_PORT"),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
