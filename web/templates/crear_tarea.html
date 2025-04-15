@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Crear Tarea{% endblock %}
+
+{% block content %}
+<h1>Crear Tarea</h1>
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_mantenimiento" class="form-label">Mantenimiento:</label>
+        <input type="number" id="id_mantenimiento" name="id_mantenimiento" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="id_encargado" class="form-label">Encargado:</label>
+        <input type="number" id="id_encargado" name="id_encargado" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="id_maquina" class="form-label">Máquina:</label>
+        <input type="number" id="id_maquina" name="id_maquina" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
+        <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="fecha_fin" class="form-label">Fecha de Fin:</label>
+        <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Tarea</button>
+</form>
+{% endblock %}

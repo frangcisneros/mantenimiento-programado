@@ -1,22 +1,41 @@
 from django.shortcuts import render
-from api.models import Pieza
 
 
-def home(request):
-    return render(request, "home.html")
+def panel_control(request):
+    return render(request, "panel_control.html")
 
 
-def dashboard(request):
-    return render(request, "dashboard.html")
+def crear_mantenimiento(request):
+    return render(request, "crear_mantenimiento.html")
 
 
-def reports(request):
-    return render(request, "reports.html")
+def crear_maquina_1(request):
+    return render(request, "crear_maquina_1.html")
 
 
-def settings(request):
-    return render(request, "settings.html")
+def crear_maquina_2(request):
+    return render(request, "crear_maquina_2.html")
 
 
-def other(request):
-    return render(request, "other.html")
+def crear_tarea(request):
+    return render(request, "crear_tarea.html")
+
+
+def ver_inventario(request):
+    return render(request, "ver_inventario.html")
+
+
+def ver_mantenimiento(request):
+    return render(request, "ver_mantenimiento.html")
+
+
+def ver_maquina_1(request):
+    return render(request, "ver_maquina_1.html")
+
+
+def ver_maquina_2(request):
+    return render(request, "ver_maquina_2.html")
+
+
+def ver_tarea(request):
+    return render(request, "web/ver_tarea.html")

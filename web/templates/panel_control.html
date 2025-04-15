@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Control{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Panel de Control</h1>
+<div class="row my-4">
+    <!-- Puedes agregar más botones y secciones según necesites -->
+    <div class="col-md-4">
+        <a href="{% url 'crear_mantenimiento' %}" class="btn btn-primary w-100">Crear Mantenimiento</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'crear_maquina_1' %}" class="btn btn-secondary w-100">Crear Máquina 1</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'crear_maquina_2' %}" class="btn btn-info w-100">Crear Máquina 2</a>
+    </div>
+</div>
+<div class="row my-4">
+    <div class="col-md-4">
+
+        {%endblock%}

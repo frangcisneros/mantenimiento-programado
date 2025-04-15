@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Ver Inventario{% endblock %}
+
+{% block content %}
+<h1>Inventario de Piezas</h1>
+<!-- Aquí podrías listar las piezas con un for loop -->
+<ul class="list-group">
+    {% for pieza in piezas %}
+    <li class="list-group-item">
+        ID: {{ pieza.id_pieza }} - {{ pieza.get_tipo_pieza_display }} - Cantidad: {{ pieza.cantidad }}
+    </li>
+    {% empty %}
+    <li class="list-group-item">No hay piezas en el inventario.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

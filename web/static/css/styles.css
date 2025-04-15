@@ -1,0 +1,28 @@
+/* Estilos básicos */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 0;
+}
+
+h1,
+h2,
+h3 {
+	color: #343a40;
+}
+
+/* Estilo para el menú de navegación */
+.navbar {
+	margin-bottom: 20px;
+}
+
+/* Espaciado y contenedores */
+.container {
+	margin-top: 20px;
+}
+
+/* Botones personalizados */
+.btn-dashboard {
+	margin-bottom: 10px;
+}
