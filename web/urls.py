@@ -2,14 +2,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("panel_control/", views.panel_control, name="panel_control"),
-    path("crear-mantenimiento/", views.crear_mantenimiento, name="crear_mantenimiento"),
-    path("crear-maquina-1/", views.crear_maquina_1, name="crear_maquina_1"),
-    path("crear-maquina-2/", views.crear_maquina_2, name="crear_maquina_2"),
-    path("crear-tarea/", views.crear_tarea, name="crear_tarea"),
-    path("ver-inventario/", views.ver_inventario, name="ver_inventario"),
-    path("ver-mantenimiento/", views.ver_mantenimiento, name="ver_mantenimiento"),
-    path("ver-maquina-1/", views.ver_maquina_1, name="ver_maquina_1"),
-    path("ver-maquina-2/", views.ver_maquina_2, name="ver_maquina_2"),
-    path("ver-tarea/", views.ver_tarea, name="ver_tarea"),
+    path("panel-control/", views.panel_control, name="panel-control"),
+    path("crear-mantenimiento/", views.crear_mantenimiento, name="crear-mantenimiento"),
+    path("crear-maquina-1/", views.crear_maquina_1, name="crear-maquina_1"),
+    path("crear-maquina-2/", views.crear_maquina_2, name="crear-maquina_2"),
+    path("crear-tarea/", views.crear_tarea, name="crear-tarea"),
+    path("ver-inventario/", views.ver_inventario, name="ver-inventario"),
+    path("ver-mantenimiento/", views.ver_mantenimiento, name="ver-mantenimiento"),
+    path("ver-maquinas-1/", views.ver_maquina_1, name="ver-maquinas-1"),
+    path("ver-maquina-2/", views.ver_maquina_2, name="ver-maquina-2"),
+    path("ver-tarea/", views.ver_tarea, name="ver-tarea"),
 ]

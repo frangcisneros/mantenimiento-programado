@@ -38,4 +38,4 @@ def ver_maquina_2(request):
 
 
 def ver_tarea(request):
-    return render(request, "web/ver_tarea.html")
+    return render(request, "ver_tarea.html")
