@@ -12,10 +12,20 @@
         <a href="{% url 'crear-maquina_1' %}" class="btn btn-secondary w-100">Crear Máquina 1</a>
     </div>
     <div class="col-md-4">
-        <a href="{% url 'crear-maquina_2' %}" class="btn btn-info w-100">Crear Máquina 2</a>
+        <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success w-100">Ver Máquina</a>
     </div>
-</div>
-<div class="row my-4">
     <div class="col-md-4">
+        <a href="{% url 'ver-inventario' %}" class="btn btn-info w-100">Ver Inventario</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'crear-tarea' %}" class="btn btn-warning w-100">Crear Tarea</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'ver-tarea' %}" class="btn btn-danger w-100">Ver Tareas</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'ver-mantenimiento' %}" class="btn btn-dark w-100">Ver Mantenimientos</a>
+        <div class="row my-4">
+            <div class="col-md-4">
 
-        {%endblock%}
+                {%endblock%}
