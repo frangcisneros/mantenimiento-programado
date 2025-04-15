@@ -3,6 +3,7 @@
 - [ ] Poder cargarle el plan de mantenimiento a una maquina.
 - [ ] Interfaz bonita.
 - [ x ] Repuestos enlazados a maquinas y tareas.
+- [ ] Arreglar modelo de mantenimiento, faltaria tambien la "maquina"
 
 # Material de referencia para manuales
 
