@@ -1,10 +1,15 @@
 # To-Do
 
 - [ ] Poder cargarle el plan de mantenimiento a una maquina.
-- [ ] Interfaz bonita.
 - [ x ] Repuestos enlazados a maquinas y tareas.
 - [ ] Arreglar modelo de mantenimiento, faltaria tambien la "maquina"
-- [ ] Botones dinamicos
+
+# To-Do Interfaz
+
+- [ x ] Iconos en los botones del panel de control
+- [ x ] Que se resalte en la navbar cuando estoy en una de esas páginas
+- [ x ] Que se resalten los botones del panel de control cuando paso el mouse
+- [ x ] Botones tamaño dinamico
 
 # Material de referencia para manuales
 

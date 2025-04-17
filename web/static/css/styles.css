@@ -22,13 +22,39 @@ h3 {
 	margin-top: 20px;
 }
 
-/* Botones personalizados */
-.btn-dashboard {
-	margin-bottom: 10px;
+:root {
+	/* Ajusta aquí tus mínimos */
+	--btn-min-width: 300px;
+	--btn-min-height: 200px;
 }
 
-.btn {
-	margin-bottom: 100px;
-	width: 500px;
-	height: 250px;
+.dashboard-grid {
+	/* Grid automático de Bootstrap */
+	/* d-grid + gap-3 ya vienen de Bootstrap; solo falta esto: */
+	grid-template-columns: repeat(auto-fit, minmax(var(--btn-min-width), 1fr));
+	grid-auto-rows: minmax(var(--btn-min-height), auto);
+}
+
+.dashboard-grid .btn {
+	/* Cada botón ocupa toda su celda */
+	width: 100%;
+	height: 100%;
+	/* centrado opcional: */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+/* Hover-grow en los botones del dashboard */
+.btn-dashboard {
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-dashboard:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Resalta el link activo en la navbar */
+.navbar .nav-link.active {
+	color: #ffc107 !important; /* amarillo Bootstrap (warning) */
 }
