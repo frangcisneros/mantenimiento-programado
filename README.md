@@ -4,6 +4,7 @@
 - [ ] Interfaz bonita.
 - [ x ] Repuestos enlazados a maquinas y tareas.
 - [ ] Arreglar modelo de mantenimiento, faltaria tambien la "maquina"
+- [ ] Botones dinamicos
 
 # Material de referencia para manuales
 
@@ -20,3 +21,5 @@ python manage.py makemigrations
 python manage.py migrate api
 
 pip freeze > requirements.txt
+
+python manage.py runserver

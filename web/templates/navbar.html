@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'panel-control' %}">Panel de Control</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear-mantenimiento' %}">Crear
+                        Mantenimiento</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear-maquina_1' %}">Crear Máquina 1</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'ver-maquinas-1' %}">Ver Máquinas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'ver-inventario' %}">Ver Inventario</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear-tarea' %}">Crear Tarea</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'ver-tarea' %}">Ver Tareas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear-mantenimiento' %}">Crear
+                        Mantenimiento</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'ver-mantenimiento' %}">Ver
+                        Mantenimientos</a></li>
+        </div>
+    </div>
+
+</nav>
