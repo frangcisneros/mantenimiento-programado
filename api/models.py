@@ -1,18 +1,16 @@
 from django.db import models
 
 
+class tipoPieza(models.Model):
+    id_tipo_pieza = models.AutoField(primary_key=True)
+    tipo_pieza = models.CharField(max_length=100)
+
+
 # * este modelo indica cada pieza individual
 class Pieza(models.Model):
     id_pieza = models.AutoField(primary_key=True)
     # * el tipo_pieza indica el tipo de pieza, este debe ser una selección entre ciertas opciones
-    TIPO_CHOICES = [
-        ("rodamiento", "Rodamiento"),
-        ("aceite", "Aceite"),
-        ("tornillo", "Tornillo"),
-        ("correa", "Correa"),
-        ("filtro", "Filtro"),
-    ]
-    tipo_pieza = models.CharField(max_length=20, choices=TIPO_CHOICES)
+    tipo_pieza = models.ForeignKey(tipoPieza, on_delete=models.CASCADE)
     # TODO: deberia haber mas campos dependiendo el tipo de pieza, por ejemplo para aceites el tipo de aceite, para rodamientos el diametro y tipo, etc.
     # ? deberia haber una tabla de inventarios? una tabla para cada tipo de pieza? o una tabla general de piezas?
     cantidad = models.IntegerField()
@@ -23,28 +21,28 @@ class Maquina(models.Model):
     tipo_maquina = models.CharField(max_length=100)
 
 
+# * clase opciones de mantenimiento que permite que luego podamos seleccionarlas desde la clase mantenimiento, para no hardcodear los tipos de mantenimiento
+class OpcionesMantenimiento(models.Model):
+    id_opcion_mantenimiento = models.AutoField(primary_key=True)
+    tipo_mantenimiento = models.CharField(max_length=100)
+
+
+class OpcionesIntervalo(models.Model):
+    id_opcion_intervalo = models.AutoField(primary_key=True)
+    intervalo = models.CharField(max_length=100)
+
+
 # * la clase mantenimiento describe el tipo de mantenimiento, este despues puede ser asignado a una tarea
 class Mantenimiento(models.Model):
     id_mantenimiento = models.AutoField(primary_key=True)
     # * el intervalo dicta cada cuanto se hace el mantenimiento
-    INTERVALO_CHOICES = [
-        ("semanal", "Semanal"),
-        ("mensual", "Mensual"),
-        ("trimestral", "Trimestral"),
-        ("semestral", "Semestral"),
-        ("anual", "Anual"),
-    ]
-    intervalo = models.CharField(max_length=20, choices=INTERVALO_CHOICES)
+    intervalo = models.ForeignKey(OpcionesIntervalo, on_delete=models.CASCADE)
     # * parte_maquina dicta donde se debe hacer el mantenimiento, en este caso es un campo de texto pero podria tener un modelo en el cual se selecciona la parte de la maquina
     parte_maquina = models.CharField(max_length=100)
     # * tipo_mantenimiento dicta el tipo de mantenimiento que se debe hacer, en este caso si es una lista de opciones, las cuales podrian ser editadas
-    TIPO_CHOICES = [
-        ("lubricar", "Lubricar"),
-        ("pruebas", "Pruebas"),
-        ("inspeccion", "Inspección"),
-        ("reajuste", "Reajuste"),
-    ]
-    tipo_mantenimiento = models.CharField(max_length=20, choices=TIPO_CHOICES)
+    tipo_mantenimiento = models.ForeignKey(
+        OpcionesMantenimiento, on_delete=models.CASCADE
+    )
     instrucciones = models.TextField()
 
 
