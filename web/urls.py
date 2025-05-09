@@ -1,7 +1,12 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+from .views import registrar_usuario
 
 urlpatterns = [
+    path("register/", registrar_usuario, name="register"),
+    path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("panel-control/", views.panel_control, name="panel-control"),
     path("crear-mantenimiento/", views.crear_mantenimiento, name="crear-mantenimiento"),
     path("crear-maquina-1/", views.crear_maquina_1, name="crear-maquina_1"),
