@@ -1,4 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from ..forms import MaquinaForm
+from ..services.maquinas_service import MaquinasService
+
+
+def crear_maquina(request):
+    if request.method == "POST":
+        form = MaquinaForm(request.POST)
+        if form.is_valid():
+            nueva = form.save()
+            # redirige a donde prefieras; aquí al panel
+            return redirect("panel-control")
+    else:
+        form = MaquinaForm()
+    return render(request, "crear_maquina.html", {"form": form})
+
+
+def listar_maquinas(request):
+    maquinas_service = MaquinasService()
+    maquinas = maquinas_service.mostrar_maquinas()
+    return render(request, "ver_maquina_1.html", {"maquinas": maquinas})
 
 
 def panel_control(request):

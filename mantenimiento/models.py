@@ -20,10 +20,16 @@ class OpcionesMaquina(models.Model):
     id_opcion_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.tipo_maquina
+
 
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.ForeignKey(OpcionesMaquina, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tipo_maquina.tipo_maquina
 
 
 # * clase opciones de mantenimiento que permite que luego podamos seleccionarlas desde la clase mantenimiento, para no hardcodear los tipos de mantenimiento
