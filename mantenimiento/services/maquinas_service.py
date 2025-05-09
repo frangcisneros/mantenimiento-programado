@@ -1,5 +1,3 @@
-# mantenimiento/services/maquinas_service.py
-
 from django.core.exceptions import ObjectDoesNotExist
 from ..models import Maquina, OpcionesMaquina
 

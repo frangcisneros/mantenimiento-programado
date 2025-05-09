@@ -16,6 +16,7 @@ class Pieza(models.Model):
     cantidad = models.IntegerField()
 
 
+# ? por que esta repetido abajo?
 class OpcionesMaquina(models.Model):
     id_opcion_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.CharField(max_length=100)
@@ -24,6 +25,7 @@ class OpcionesMaquina(models.Model):
         return self.tipo_maquina
 
 
+# ? por que esta repetido arriba?
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.ForeignKey(OpcionesMaquina, on_delete=models.CASCADE)
@@ -42,19 +44,25 @@ class OpcionesIntervalo(models.Model):
     id_opcion_intervalo = models.AutoField(primary_key=True)
     intervalo = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.intervalo
+
 
 # * la clase mantenimiento describe el tipo de mantenimiento, este despues puede ser asignado a una tarea
 class Mantenimiento(models.Model):
     id_mantenimiento = models.AutoField(primary_key=True)
     # * el intervalo dicta cada cuanto se hace el mantenimiento
     intervalo = models.ForeignKey(OpcionesIntervalo, on_delete=models.CASCADE)
-    # * parte_maquina dicta donde se debe hacer el mantenimiento, en este caso es un campo de texto pero podria tener un modelo en el cual se selecciona la parte de la maquina
+    # TODO: agregar un modelo para seleccionar las partes de la maquina
     parte_maquina = models.CharField(max_length=100)
     # * tipo_mantenimiento dicta el tipo de mantenimiento que se debe hacer, en este caso si es una lista de opciones, las cuales podrian ser editadas
     tipo_mantenimiento = models.ForeignKey(
         OpcionesMantenimiento, on_delete=models.CASCADE
     )
     instrucciones = models.TextField()
+
+    def __str__(self):
+        return self.tipo_mantenimiento.tipo_mantenimiento
 
 
 class Encargado(models.Model):

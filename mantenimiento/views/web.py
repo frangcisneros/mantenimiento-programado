@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from ..forms import MaquinaForm
+from ..forms import MaquinaForm, TareaForm, MantenimientoForm
 from ..services.maquinas_service import MaquinasService
 
 
@@ -15,6 +15,30 @@ def crear_maquina(request):
     return render(request, "crear_maquina.html", {"form": form})
 
 
+def crear_tarea(request):
+    if request.method == "POST":
+        form = TareaForm(request.POST)
+        if form.is_valid():
+            nueva = form.save()
+            # redirige a donde prefieras; aquí al panel
+            return redirect("panel-control")
+    else:
+        form = TareaForm()
+    return render(request, "crear_tarea.html", {"form": form})
+
+
+def crear_mantenimiento(request):
+    if request.method == "POST":
+        form = MantenimientoForm(request.POST)
+        if form.is_valid():
+            nuevo = form.save()
+            # redirige a donde prefieras; aquí al panel
+            return redirect("panel-control")
+    else:
+        form = MantenimientoForm()
+    return render(request, "crear_mantenimiento.html", {"form": form})
+
+
 def listar_maquinas(request):
     maquinas_service = MaquinasService()
     maquinas = maquinas_service.mostrar_maquinas()
@@ -25,8 +49,8 @@ def panel_control(request):
     return render(request, "panel_control.html")
 
 
-def crear_mantenimiento(request):
-    return render(request, "crear_mantenimiento.html")
+# def crear_mantenimiento(request):
+#     return render(request, "crear_mantenimiento.html")
 
 
 def crear_maquina_1(request):
@@ -37,8 +61,8 @@ def crear_maquina_2(request):
     return render(request, "crear_maquina_2.html")
 
 
-def crear_tarea(request):
-    return render(request, "crear_tarea.html")
+# def crear_tarea(request):
+#     return render(request, "crear_tarea.html")
 
 
 def ver_inventario(request):

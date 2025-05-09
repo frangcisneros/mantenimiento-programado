@@ -5,35 +5,24 @@
 {% endblock %}
 {% block content %}
 <h1>Crear Mantenimiento</h1>
-<form method="post" action="">
+<form method="post" novalidate>
     {% csrf_token %}
+    {{ form.non_field_errors }}
     <div class="mb-3">
-        <label for="intervalo" class="form-label">Intervalo de Mantenimiento:</label>
-        <select id="intervalo" name="intervalo" class="form-select">
-            <option value="semanal">Semanal</option>
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-        </select>
+        {{ form.intervalo.label_tag }}
+        {{ form.intervalo }}
+        {{ form.intervalo.errors }}
     </div>
     <div class="mb-3">
-        <label for="parte_maquina" class="form-label">Parte de la Máquina a Mantener:</label>
-        <input type="text" id="parte_maquina" name="parte_maquina" class="form-control" required>
+        {{ form.parte_maquina.label_tag }}
+        {{ form.parte_maquina }}
+        {{ form.parte_maquina.errors }}
     </div>
     <div class="mb-3">
-        <label for="tipo_mantenimiento" class="form-label">Tipo de Mantenimiento:</label>
-        <select id="tipo_mantenimiento" name="tipo_mantenimiento" class="form-select">
-            <option value="lubricar">Lubricar</option>
-            <option value="pruebas">Pruebas</option>
-            <option value="inspeccion">Inspección</option>
-            <option value="reajuste">Reajuste</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="instrucciones" class="form-label">Instrucciones:</label>
-        <textarea id="instrucciones" name="instrucciones" class="form-control" rows="4"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Crear Mantenimiento</button>
+        {{ form.instrucciones.label_tag }}
+        {{ form.instrucciones }}
+        {{ form.instrucciones.errors }}
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <a href="{% url 'panel-control' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}
