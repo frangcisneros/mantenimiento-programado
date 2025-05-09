@@ -16,9 +16,14 @@ class Pieza(models.Model):
     cantidad = models.IntegerField()
 
 
+class OpcionesMaquina(models.Model):
+    id_opcion_maquina = models.AutoField(primary_key=True)
+    tipo_maquina = models.CharField(max_length=100)
+
+
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
-    tipo_maquina = models.CharField(max_length=100)
+    tipo_maquina = models.ForeignKey(OpcionesMaquina, on_delete=models.CASCADE)
 
 
 # * clase opciones de mantenimiento que permite que luego podamos seleccionarlas desde la clase mantenimiento, para no hardcodear los tipos de mantenimiento

@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from ..services.piezas_service import PiezasService
+from ..services import PiezasService, MaquinasService
 from ..models import Maquina, Pieza, Mantenimiento, Encargado, Tarea, PiezasUtilizadas
 from ..serializers import (
     MaquinaSerializer,
@@ -46,6 +46,7 @@ class PiezasUtilizadasViewSet(viewsets.ModelViewSet):
     serializer_class = PiezasUtilizadasSerializer
 
 
+# NO SE USO ESTO NUNCA MAS, VER DE UTILIZAR O BORRAR
 class UsarPiezaAPIView(APIView):
     def post(self, request, format=None):
         id_pieza = request.data.get("id_pieza")
@@ -77,3 +78,14 @@ class UsarPiezaAPIView(APIView):
                 {"detail": "Error interno"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+
+class CrearMaquinaAPIView(APIView):
+    def post(self, request, format=None):
+        tipo_maquina = request.data.get("tipo_maquina")
+        service = MaquinasService()
+        service.crear_maquina(tipo_maquina)
+        return Response(
+            {"detail": "Maquina creada correctamente"},
+            status=status.HTTP_201_CREATED,
+        )
