@@ -7,6 +7,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEBUG = True
 
 STATIC_URL = "/static/"
+LOGIN_URL = "login"
+
+LOGIN_REDIRECT_URL = "panel-control"
+LOGOUT_REDIRECT_URL = "login"
+
+SESSION_COOKIE_AGE = 30 * 60
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_SECURE = False  # Cambiar a True en producción
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Lax"
 
 STATICFILES_DIRS = [BASE_DIR / "web" / "static"]
 
@@ -38,7 +50,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_session_timeout.middleware.SessionTimeoutMiddleware",
 ]
+
+SESSION_TIMEOUT = 1800
 
 ROOT_URLCONF = "main_app.urls"
 
