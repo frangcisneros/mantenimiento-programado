@@ -1,4 +1,4 @@
-from api.models import Pieza, PiezasUtilizadas
+from ..models import Pieza, PiezasUtilizadas
 
 
 class PiezasService:

@@ -3,9 +3,9 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from api.services.piezas_service import PiezasService
-from .models import Maquina, Pieza, Mantenimiento, Encargado, Tarea, PiezasUtilizadas
-from .serializers import (
+from ..services.piezas_service import PiezasService
+from ..models import Maquina, Pieza, Mantenimiento, Encargado, Tarea, PiezasUtilizadas
+from ..serializers import (
     MaquinaSerializer,
     PiezaSerializer,
     EncargadoSerializer,
