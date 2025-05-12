@@ -9,6 +9,11 @@
     {% csrf_token %}
     {{ form.non_field_errors }}
     <div class="mb-3">
+        {{ form.tipo_mantenimiento.label_tag }}
+        {{ form.tipo_mantenimiento }}
+        {{ form.tipo_mantenimiento.errors }}
+    </div>
+    <div class="mb-3">
         {{ form.intervalo.label_tag }}
         {{ form.intervalo }}
         {{ form.intervalo.errors }}

@@ -29,6 +29,12 @@ class TareaForm(forms.ModelForm):
 
 
 class MantenimientoForm(forms.ModelForm):
+    tipo_mantenimiento = forms.ModelChoiceField(
+        queryset=MantenimientoService().obtener_tipos_mantenimiento(),
+        label="Tipo de Mantenimiento",
+        widget=forms.Select(attrs={"class": "form-select"}),
+    )
+
     intervalo = forms.ModelChoiceField(
         queryset=IntervaloService().obtener_intervalos(),
         label="Intervalo de Mantenimiento",
@@ -46,4 +52,4 @@ class MantenimientoForm(forms.ModelForm):
 
     class Meta:
         model = Mantenimiento
-        fields = ["intervalo", "parte_maquina", "instrucciones"]
+        fields = ["tipo_mantenimiento", "intervalo", "parte_maquina", "instrucciones"]

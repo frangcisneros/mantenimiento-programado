@@ -39,6 +39,9 @@ class OpcionesMantenimiento(models.Model):
     id_opcion_mantenimiento = models.AutoField(primary_key=True)
     tipo_mantenimiento = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.tipo_mantenimiento
+
 
 class OpcionesIntervalo(models.Model):
     id_opcion_intervalo = models.AutoField(primary_key=True)
