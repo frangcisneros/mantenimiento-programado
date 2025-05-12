@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Crear Tipo Mantenimiento{% endblock %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>Crear Tipo Mantenimiento</h1>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        {{ form.tipo_mantenimiento.label_tag }}
+        {{ form.tipo_mantenimiento }}
+        {{ form.tipo_mantenimiento.errors }}
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a href="{% url 'panel-control' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,6 +1,34 @@
 from django import forms
-from .models import Maquina, OpcionesMaquina, Mantenimiento
+from .models import (
+    Maquina,
+    OpcionesMaquina,
+    Mantenimiento,
+    OpcionesMantenimiento,
+    OpcionesIntervalo,
+)
 from .services import TipoMaquinaService, MantenimientoService, IntervaloService
+
+
+class IntervaloForm(forms.ModelForm):
+    intervalo = forms.CharField(
+        label="Crear Intervalo",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = OpcionesIntervalo
+        fields = ["intervalo"]
+
+
+class TipoMantenimientoForm(forms.ModelForm):
+    tipo_mantenimiento = forms.CharField(
+        label="Crear tipo de mantenimiento",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = OpcionesMantenimiento
+        fields = ["tipo_mantenimiento"]
 
 
 class MaquinaForm(forms.ModelForm):

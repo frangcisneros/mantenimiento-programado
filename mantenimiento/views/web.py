@@ -1,5 +1,11 @@
 from django.shortcuts import render, redirect
-from ..forms import MaquinaForm, TareaForm, MantenimientoForm
+from ..forms import (
+    MaquinaForm,
+    TareaForm,
+    MantenimientoForm,
+    TipoMantenimientoForm,
+    IntervaloForm,
+)
 from ..services.maquinas_service import MaquinasService
 
 
@@ -27,6 +33,18 @@ def crear_tarea(request):
     return render(request, "crear_tarea.html", {"form": form})
 
 
+def crear_intervalo(request):
+    if request.method == "POST":
+        form = IntervaloForm(request.POST)
+        if form.is_valid():
+            nuevo = form.save()
+            # redirige a donde prefieras; aquí al panel
+            return redirect("panel-control")
+    else:
+        form = IntervaloForm()
+    return render(request, "crear_intervalo.html", {"form": form})
+
+
 def crear_mantenimiento(request):
     if request.method == "POST":
         form = MantenimientoForm(request.POST)
@@ -37,6 +55,17 @@ def crear_mantenimiento(request):
     else:
         form = MantenimientoForm()
     return render(request, "crear_mantenimiento.html", {"form": form})
+
+
+def crear_tipo_mantenimiento(request):
+    if request.method == "POST":
+        form = TipoMantenimientoForm(request.POST)
+        if form.is_valid():
+            nuevo = form.save()
+            return redirect("panel-control")
+    else:
+        form = TipoMantenimientoForm()
+    return render(request, "crear_tipo_mantenimiento.html", {"form": form})
 
 
 def listar_maquinas(request):

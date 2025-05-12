@@ -25,6 +25,8 @@ from .views.web import (
     ver_tarea,
     crear_maquina,
     listar_maquinas,
+    crear_tipo_mantenimiento,
+    crear_intervalo,
 )
 
 router = DefaultRouter()
@@ -42,6 +44,12 @@ urlpatterns = [
     # Ruta extra para el APIView de usar pieza
     # ——— RUTAS DE LA INTERFAZ WEB —————————————————————————
     path("panel-control/", panel_control, name="panel-control"),
+    path(
+        "crear-tipo-mantenimiento/",
+        crear_tipo_mantenimiento,
+        name="crear-tipo-mantenimiento",
+    ),
+    path("crear-intervalo/", crear_intervalo, name="crear-intervalo"),
     path("crear-mantenimiento/", crear_mantenimiento, name="crear-mantenimiento"),
     path("crear-maquina-1/", crear_maquina_1, name="crear-maquina_1"),
     path("crear-maquina/", crear_maquina, name="crear_maquina"),
