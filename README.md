@@ -28,3 +28,7 @@ python manage.py migrate api
 pip freeze > requirements.txt
 
 python manage.py runserver
+
+Para crear grupos
+
+python manage.py create_groups
