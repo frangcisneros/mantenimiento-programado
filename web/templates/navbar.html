@@ -17,6 +17,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'verificar-codigo' %}">Ingresar Código</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'crear-mantenimiento' %}active{% endif %}"
                         href="{% url 'crear-mantenimiento' %}">
                         Crear Mantenimiento

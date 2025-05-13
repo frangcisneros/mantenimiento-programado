@@ -16,10 +16,11 @@
         Crear Mantenimiento
     </a>
 
-    <a href="{% url 'crear-maquina_1' %}" class="btn btn-secondary btn-dashboard">
-        <i class="bi bi-hdd-stack-fill me-2"></i>
-        Crear Máquina 1
-    </a>
+    {% if es_jefe_area %}
+    <a href="{% url 'crear-maquina-1' %}" class="btn btn-primary">Crear Máquina</a>
+    {% else %}
+    <p>No tienes permisos para crear máquinas.</p>
+    {% endif %}
 
     <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success btn-dashboard">
         <i class="bi bi-box-seam me-2"></i>

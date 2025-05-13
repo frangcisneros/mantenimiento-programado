@@ -4,13 +4,14 @@ from django.contrib.auth import views as auth_views
 from .views import registrar_usuario
 
 urlpatterns = [
+    path("veificar-codigo/", views.verificar_codigo, name="verificar-codigo"),
     path("register/", registrar_usuario, name="register"),
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("panel-control/", views.panel_control, name="panel-control"),
     path("crear-mantenimiento/", views.crear_mantenimiento, name="crear-mantenimiento"),
-    path("crear-maquina-1/", views.crear_maquina_1, name="crear-maquina_1"),
-    path("crear-maquina-2/", views.crear_maquina_2, name="crear-maquina_2"),
+    path("crear-maquina-1/", views.crear_maquina_1, name="crear-maquina-1"),
+    path("crear-maquina-2/", views.crear_maquina_2, name="crear-maquina-2"),
     path("crear-tarea/", views.crear_tarea, name="crear-tarea"),
     path("ver-inventario/", views.ver_inventario, name="ver-inventario"),
     path("ver-mantenimiento/", views.ver_mantenimiento, name="ver-mantenimiento"),
