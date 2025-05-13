@@ -16,7 +16,6 @@ class Pieza(models.Model):
     cantidad = models.IntegerField()
 
 
-# ? por que esta repetido abajo?
 class OpcionesMaquina(models.Model):
     id_opcion_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.CharField(max_length=100)
@@ -25,7 +24,6 @@ class OpcionesMaquina(models.Model):
         return self.tipo_maquina
 
 
-# ? por que esta repetido arriba?
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.ForeignKey(OpcionesMaquina, on_delete=models.CASCADE)
@@ -67,10 +65,18 @@ class Mantenimiento(models.Model):
     def __str__(self):
         return self.tipo_mantenimiento.tipo_mantenimiento
 
+    def mostrar_mantenimiento(self):
+        return f"{self.tipo_mantenimiento} - {self.parte_maquina} - {self.instrucciones} - {self.intervalo}"
+
 
 class Encargado(models.Model):
     id_encargado = models.AutoField(primary_key=True)
-    # TODO: agregar datos del encargado, nombre y puesto
+    nombre = models.CharField(max_length=100, default="Nombre Desconocido")
+    apellido = models.CharField(max_length=100, default="Apellido Desconocido")
+    telefono = models.CharField(max_length=15, default="Telefono Desconocido")
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
 
 
 class PiezasUtilizadas(models.Model):

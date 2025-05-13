@@ -5,8 +5,9 @@ from ..forms import (
     MantenimientoForm,
     TipoMantenimientoForm,
     IntervaloForm,
+    EncargadoForm,
 )
-from ..services.maquinas_service import MaquinasService
+from ..services import MaquinasService, MantenimientoService, TareaService
 
 
 def crear_maquina(request):
@@ -68,18 +69,31 @@ def crear_tipo_mantenimiento(request):
     return render(request, "crear_tipo_mantenimiento.html", {"form": form})
 
 
+def crear_encargado(request):
+    if request.method == "POST":
+        form = EncargadoForm(request.POST)
+        if form.is_valid():
+            nuevo = form.save()
+            return redirect("panel-control")
+    else:
+        form = EncargadoForm()
+    return render(request, "crear_encargado.html", {"form": form})
+
+
 def listar_maquinas(request):
     maquinas_service = MaquinasService()
-    maquinas = maquinas_service.mostrar_maquinas()
+    maquinas = maquinas_service.obtener_maquinas()
     return render(request, "ver_maquina_1.html", {"maquinas": maquinas})
+
+
+def ver_mantenimiento(request):
+    mantenimiento_service = MantenimientoService()
+    mantenimientos = mantenimiento_service.obtener_mantenimientos()
+    return render(request, "ver_mantenimiento.html", {"mantenimientos": mantenimientos})
 
 
 def panel_control(request):
     return render(request, "panel_control.html")
-
-
-# def crear_mantenimiento(request):
-#     return render(request, "crear_mantenimiento.html")
 
 
 def crear_maquina_1(request):
@@ -90,16 +104,8 @@ def crear_maquina_2(request):
     return render(request, "crear_maquina_2.html")
 
 
-# def crear_tarea(request):
-#     return render(request, "crear_tarea.html")
-
-
 def ver_inventario(request):
     return render(request, "ver_inventario.html")
-
-
-def ver_mantenimiento(request):
-    return render(request, "ver_mantenimiento.html")
 
 
 def ver_maquina_1(request):
@@ -111,4 +117,6 @@ def ver_maquina_2(request):
 
 
 def ver_tarea(request):
-    return render(request, "ver_tarea.html")
+    tarea_service = TareaService()
+    tareas = tarea_service.obtener_tareas()
+    return render(request, "ver_tarea.html", {"tareas": tareas})

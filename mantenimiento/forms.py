@@ -5,8 +5,17 @@ from .models import (
     Mantenimiento,
     OpcionesMantenimiento,
     OpcionesIntervalo,
+    Encargado,
+    Tarea,
 )
-from .services import TipoMaquinaService, MantenimientoService, IntervaloService
+from .services import (
+    TipoMaquinaService,
+    MantenimientoService,
+    IntervaloService,
+    EncargadoService,
+    MaquinasService,
+    EncargadoService,
+)
 
 
 class IntervaloForm(forms.ModelForm):
@@ -44,16 +53,63 @@ class MaquinaForm(forms.ModelForm):
 
 
 class TareaForm(forms.ModelForm):
-    # * tipo de mantenimiento se refiere al modelo "Mantenimiento" no al modelo "OpcionesMantenimiento"
-    tipo_mantenimiento = forms.ModelChoiceField(
+    id_mantenimiento = forms.ModelChoiceField(
         queryset=MantenimientoService().obtener_mantenimientos(),
-        label="Tipo de Mantenimiento",
+        label="Mantenimiento",
         widget=forms.Select(attrs={"class": "form-select"}),
     )
 
+    id_encargado = forms.ModelChoiceField(
+        queryset=EncargadoService().obtener_encargados(),
+        label="Encargado",
+        widget=forms.Select(attrs={"class": "form-select"}),
+    )
+
+    id_maquina = forms.ModelChoiceField(
+        queryset=MaquinasService().obtener_maquinas(),
+        label="Máquina",
+        widget=forms.Select(attrs={"class": "form-select"}),
+    )
+    fecha_inicio = forms.DateField(
+        label="Fecha de Inicio",
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+    )
+    fecha_fin = forms.DateField(
+        label="Fecha de Fin",
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+    )
+
     class Meta:
-        model = Maquina
-        fields = ["tipo_mantenimiento"]
+        model = Tarea
+        fields = [
+            "id_mantenimiento",
+            "id_encargado",
+            "id_maquina",
+            "fecha_inicio",
+            "fecha_fin",
+        ]
+
+
+class EncargadoForm(forms.ModelForm):
+    nombre = forms.CharField(
+        label="Nombre",
+        max_length=100,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+    apellido = forms.CharField(
+        label="Apellido",
+        max_length=100,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+    telefono = forms.CharField(
+        label="Teléfono",
+        max_length=15,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = Encargado
+        fields = ["nombre", "apellido", "telefono"]
 
 
 class MantenimientoForm(forms.ModelForm):

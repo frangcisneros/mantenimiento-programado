@@ -9,8 +9,7 @@
 <ul class="list-group">
     {% for mantenimiento in mantenimientos %}
     <li class="list-group-item">
-        ID: {{ mantenimiento.id_mantenimiento }} - {{ mantenimiento.get_tipo_mantenimiento_display }} en {{
-        mantenimiento.parte_maquina }}
+        {{ mantenimiento.mostrar_mantenimiento }}
     </li>
     {% empty %}
     <li class="list-group-item">No se han registrado mantenimientos.</li>

@@ -3,7 +3,7 @@ from ..models import Maquina, OpcionesMaquina
 
 
 class MaquinasService:
-    def mostrar_maquinas(self):
+    def obtener_maquinas(self):
         """
         Muestra todas las máquinas registradas en la base de datos.
         """

@@ -27,6 +27,7 @@ from .views.web import (
     listar_maquinas,
     crear_tipo_mantenimiento,
     crear_intervalo,
+    crear_encargado,
 )
 
 router = DefaultRouter()
@@ -60,4 +61,5 @@ urlpatterns = [
     path("ver-maquina-1/", listar_maquinas, name="ver-maquinas-1"),
     path("ver-maquina-2/", ver_maquina_2, name="ver-maquinas-2"),
     path("ver-tarea/", ver_tarea, name="ver-tarea"),
+    path("crear-encargado/", crear_encargado, name="crear-encargado"),
 ]
