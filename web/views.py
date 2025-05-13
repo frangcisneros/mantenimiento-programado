@@ -53,16 +53,19 @@ def crear_mantenimiento(request):
     return render(request, "crear_mantenimiento.html")
 
 
+@user_passes_test(es_jefe_area)
 @login_required
 def crear_maquina_1(request):
     return render(request, "crear_maquina_1.html")
 
 
+@user_passes_test(es_jefe_area)
 @login_required
 def crear_maquina_2(request):
     return render(request, "crear_maquina_2.html")
 
 
+@user_passes_test(es_jefe_area)
 @login_required
 def crear_tarea(request):
     return render(request, "crear_tarea.html")

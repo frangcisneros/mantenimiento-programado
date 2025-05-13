@@ -11,15 +11,15 @@
       height: calc(100vh - 140px); 
       padding: 1rem;
     ">
+    {% if es_jefe_area %}
     <a href="{% url 'crear-mantenimiento' %}" class="btn btn-primary btn-dashboard">
         <i class="bi bi-wrench me-2"></i>
         Crear Mantenimiento
     </a>
+    {% endif %}
 
     {% if es_jefe_area %}
     <a href="{% url 'crear-maquina-1' %}" class="btn btn-primary">Crear Máquina</a>
-    {% else %}
-    <p>No tienes permisos para crear máquinas.</p>
     {% endif %}
 
     <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success btn-dashboard">
@@ -32,10 +32,12 @@
         Ver Inventario
     </a>
 
+    {%if es_jefe_area %}
     <a href="{% url 'crear-tarea' %}" class="btn btn-warning btn-dashboard">
         <i class="bi bi-card-checklist me-2"></i>
         Crear Tarea
     </a>
+    {% endif %}
 
     <a href="{% url 'ver-tarea' %}" class="btn btn-danger btn-dashboard">
         <i class="bi bi-list-check me-2"></i>

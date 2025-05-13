@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from .views import registrar_usuario
 
 urlpatterns = [
-    path("veificar-codigo/", views.verificar_codigo, name="verificar-codigo"),
+    path("verificar-codigo/", views.verificar_codigo, name="verificar-codigo"),
     path("register/", registrar_usuario, name="register"),
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
