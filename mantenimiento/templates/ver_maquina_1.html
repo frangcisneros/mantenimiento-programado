@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Todas las Máquinas{% endblock %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>Listado de Máquinas</h1>
+{% if maquinas %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo de Máquina</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for maquina in maquinas %}
+        <tr>
+            <td>{{ maquina.id_maquina }}</td>
+            <td>{{ maquina.tipo_maquina }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay máquinas registradas todavía.</p>
+{% endif %}
+{% endblock %}

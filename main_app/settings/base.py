@@ -20,7 +20,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "Lax"
 SESSION_COOKIE_SAMESITE = "Lax"
 
-STATICFILES_DIRS = [BASE_DIR / "web" / "static"]
+STATICFILES_DIRS = [BASE_DIR / "mantenimiento" / "static"]
 
 #! NO SE SI DEJAR ESTO
 SECRET_KEY = "django-insecure-vuwpwu1n1gqs6x1tbiji5^b3s)su!ek-h13&@9n4a7!rf^gn&d"
@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     # * TERCEROS
     "rest_framework",
     # * PROPIOS
-    "api",
-    "web",
+    "mantenimiento",
 ]
 
 MIDDLEWARE = [

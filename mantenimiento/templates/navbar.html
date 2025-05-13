@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'panel-control' %}">
+            Panel de Control
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% comment %} Para cada li usamos request.resolver_match.url_name {% endcomment %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'panel-control' %}active{% endif %}"
+                        href="{% url 'panel-control' %}">
+                        Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'verificar-codigo' %}">Ingresar Código</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'crear-mantenimiento' %}active{% endif %}"
+                        href="{% url 'crear-mantenimiento' %}">
+                        Crear Mantenimiento
+                    </a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link {% if request.resolver_match.url_name == 'crear_maquina' %}active{% endif %}"
+                        href="{% url 'crear_maquina' %}">
+                        Crear Máquina
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'ver-maquinas-1' %}active{% endif %}"
+                        href="{% url 'ver-maquinas-1' %}">
+                        Ver Máquinas
+                    </a>
+                </li>
+                <!-- Enlace para cerrar sesión -->
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn btn-link"
+                            style="padding: 0; border: none; background: none;">
+                            Cerrar sesión
+                        </button>
+                    </form>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

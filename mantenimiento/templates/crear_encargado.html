@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Crear Encargado{% endblock %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>Crear Encargado</h1>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+        {{ form.nombre.errors }}
+    </div>
+    <div class="mb-3">
+        {{ form.apellido.label_tag }}
+        {{ form.apellido }}
+        {{ form.apellido.errors }}
+    </div>
+    <div class="mb-3">
+        {{ form.telefono.label_tag }}
+        {{ form.telefono }}
+        {{ form.telefono.errors }}
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a href="{% url 'panel-control' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

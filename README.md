@@ -3,6 +3,7 @@
 - [ ] Poder cargarle el plan de mantenimiento a una maquina.
 - [ x ] Repuestos enlazados a maquinas y tareas.
 - [ ] Arreglar modelo de mantenimiento, faltaria tambien la "maquina"
+- [ ] QR para entrar rapido a las maquinas y piezas
 
 # To-Do Interfaz
 

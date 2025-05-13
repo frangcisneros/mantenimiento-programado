@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Control{% endblock %}
+
+{% block content %}
+<h1 class="text-center my-4">Panel de Control</h1>
+
+<div class="dashboard-grid d-grid gap-3" style="
+      grid-template-columns:
+        repeat(auto-fit, minmax(var(--btn-min-width, 180px), 1fr));
+      grid-auto-rows: minmax(var(--btn-min-height, 100px), auto);
+      height: calc(100vh - 140px); 
+      padding: 1rem;
+    ">
+    <a href="{% url 'crear-tipo-mantenimiento' %}" class="btn btn-primary btn-dashboard">
+        <i class="bi bi-wrench me-2"></i>
+        Crear Tipo de Mantenimiento
+    </a>
+    <a href="{% url 'crear-tipo-maquina' %}" class="btn btn-secondary btn-dashboard">
+        <i class="bi bi-hdd-stack-fill me-2"></i>
+        Crear Tipo de Máquina
+    </a>
+    <a href="{% url 'crear-encargado' %}" class="btn btn-success btn-dashboard">
+        <i class="bi bi-person-fill me-2"></i>
+        Crear Encargado
+    </a>
+    <a href="{% url 'crear-intervalo' %}" class="btn btn-info btn-dashboard">
+        <i class="bi bi-calendar2-week me-2"></i>
+        Crear Intervalo
+    </a>
+</div>
+{% endblock %}

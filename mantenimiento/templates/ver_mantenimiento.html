@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Ver Mantenimiento{% endblock %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>Histórico de Mantenimientos</h1>
+<!-- Ejemplo de lista de mantenimientos -->
+<ul class="list-group">
+    {% for mantenimiento in mantenimientos %}
+    <li class="list-group-item">
+        {{ mantenimiento.mostrar_mantenimiento }}
+    </li>
+    {% empty %}
+    <li class="list-group-item">No se han registrado mantenimientos.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
