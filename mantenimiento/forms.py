@@ -18,6 +18,17 @@ from .services import (
 )
 
 
+class TipoMaquinaForm(forms.ModelForm):
+    tipo_maquina = forms.CharField(
+        label="Crear tipo de máquina",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = OpcionesMaquina
+        fields = ["tipo_maquina"]
+
+
 class IntervaloForm(forms.ModelForm):
     intervalo = forms.CharField(
         label="Crear Intervalo",

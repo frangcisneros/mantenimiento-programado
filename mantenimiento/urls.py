@@ -28,6 +28,8 @@ from .views.web import (
     crear_tipo_mantenimiento,
     crear_intervalo,
     crear_encargado,
+    admin_panel,
+    crear_tipo_maquina,
 )
 
 router = DefaultRouter()
@@ -54,6 +56,7 @@ urlpatterns = [
     path("crear-mantenimiento/", crear_mantenimiento, name="crear-mantenimiento"),
     path("crear-maquina-1/", crear_maquina_1, name="crear-maquina_1"),
     path("crear-maquina/", crear_maquina, name="crear_maquina"),
+    path("crear-tipo-maquina/", crear_tipo_maquina, name="crear-tipo-maquina"),
     path("crear-maquina-2/", crear_maquina_2, name="crear-maquina_2"),
     path("crear-tarea/", crear_tarea, name="crear-tarea"),
     path("ver-inventario/", ver_inventario, name="ver-inventario"),
@@ -62,4 +65,5 @@ urlpatterns = [
     path("ver-maquina-2/", ver_maquina_2, name="ver-maquinas-2"),
     path("ver-tarea/", ver_tarea, name="ver-tarea"),
     path("crear-encargado/", crear_encargado, name="crear-encargado"),
+    path("admin-panel/", admin_panel, name="admin-panel"),
 ]

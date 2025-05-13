@@ -6,6 +6,7 @@ from ..forms import (
     TipoMantenimientoForm,
     IntervaloForm,
     EncargadoForm,
+    TipoMaquinaForm,
 )
 from ..services import MaquinasService, MantenimientoService, TareaService
 
@@ -80,6 +81,17 @@ def crear_encargado(request):
     return render(request, "crear_encargado.html", {"form": form})
 
 
+def crear_tipo_maquina(request):
+    if request.method == "POST":
+        form = TipoMaquinaForm(request.POST)
+        if form.is_valid():
+            nuevo = form.save()
+            return redirect("panel-control")
+    else:
+        form = TipoMaquinaForm()
+    return render(request, "crear_tipo_maquina.html", {"form": form})
+
+
 def listar_maquinas(request):
     maquinas_service = MaquinasService()
     maquinas = maquinas_service.obtener_maquinas()
@@ -120,3 +132,7 @@ def ver_tarea(request):
     tarea_service = TareaService()
     tareas = tarea_service.obtener_tareas()
     return render(request, "ver_tarea.html", {"tareas": tareas})
+
+
+def admin_panel(request):
+    return render(request, "admin_panel.html")
