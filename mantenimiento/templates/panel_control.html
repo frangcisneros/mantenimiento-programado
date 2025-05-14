@@ -12,17 +12,11 @@
       padding: 1rem;
     ">
     {% if es_jefe_area %}
-    <a href="{% url 'crear-mantenimiento' %}" class="btn btn-primary btn-dashboard">
-        <i class="bi bi-wrench me-2"></i>
-        Crear Mantenimiento
+    <a href="{% url 'admin-panel' %}" class="btn btn-light btn-dashboard">
+        <i class="bi bi-person-circle me-2"></i>
+        Opciones de Administrador
     </a>
     {% endif %}
-
-
-    <a href="{% url 'crear_maquina' %}" class="btn btn-secondary btn-dashboard">
-        <i class="bi bi-hdd-stack-fill me-2"></i>
-        Crear Máquina 1
-    </a>
 
     <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success btn-dashboard">
         <i class="bi bi-box-seam me-2"></i>
@@ -34,13 +28,6 @@
         Ver Inventario
     </a>
 
-    {%if es_jefe_area %}
-    <a href="{% url 'crear-tarea' %}" class="btn btn-warning btn-dashboard">
-        <i class="bi bi-card-checklist me-2"></i>
-        Crear Tarea
-    </a>
-    {% endif %}
-
     <a href="{% url 'ver-tarea' %}" class="btn btn-danger btn-dashboard">
         <i class="bi bi-list-check me-2"></i>
         Ver Tareas
@@ -49,10 +36,6 @@
     <a href="{% url 'ver-mantenimiento' %}" class="btn btn-dark btn-dashboard">
         <i class="bi bi-gear-fill me-2"></i>
         Ver Mantenimientos
-    </a>
-    <a href="{% url 'admin-panel' %}" class="btn btn-light btn-dashboard">
-        <i class="bi bi-person-circle me-2"></i>
-        Opciones de Administrador
     </a>
 </div>
 {% endblock %}
