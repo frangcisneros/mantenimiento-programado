@@ -9,13 +9,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                {% comment %} Para cada li usamos request.resolver_match.url_name {% endcomment %}
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'panel-control' %}active{% endif %}"
-                        href="{% url 'panel-control' %}">
-                        Inicio
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'verificar-codigo' %}">Ingresar Código</a>
                 </li>
@@ -38,12 +31,10 @@
                         Ver Máquinas
                     </a>
                 </li>
-                <!-- Enlace para cerrar sesión -->
                 <li class="nav-item">
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" class="nav-link btn btn-link"
-                            style="padding: 0; border: none; background: none;">
+                        <button type="submit" class="nav-link btn btn-link">
                             Cerrar sesión
                         </button>
                     </form>
