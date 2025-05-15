@@ -1,3 +1,5 @@
+Owners: Francisco Cisneros y Marcelo Sola Bru
+
 **Aplicación Web para Control de Mantenimiento de Máquinas**
 
 **Descripción**
