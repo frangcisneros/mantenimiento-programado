@@ -145,8 +145,12 @@ def crear_tipo_maquina(request):
 @login_required
 def listar_maquinas(request):
     maquinas_service = MaquinasService()
+    tareas_service = TareaService()
+    tareas = tareas_service.obtener_tareas()
     maquinas = maquinas_service.obtener_maquinas()
-    return render(request, "ver_maquina_1.html", {"maquinas": maquinas})
+    return render(
+        request, "ver_maquina_1.html", {"maquinas": maquinas, "tareas": tareas}
+    )
 
 
 @login_required
@@ -194,6 +198,16 @@ def ver_tarea(request):
     tarea_service = TareaService()
     tareas = tarea_service.obtener_tareas()
     return render(request, "ver_tarea.html", {"tareas": tareas})
+
+
+@login_required
+def ver_tarea_detalle(request, id_tarea):
+    tarea_service = TareaService()
+    tarea = tarea_service.obtener_tarea_por_id(id_tarea)
+    print(tarea)
+    if tarea is None:
+        return render(request, "404.html", status=404)
+    return render(request, "ver_tarea_detalle.html", {"tarea": tarea})
 
 
 @login_required

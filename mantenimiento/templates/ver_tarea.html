@@ -27,6 +27,10 @@
             <td>{{ tarea.id_maquina }}</td>
             <td>{{ tarea.fecha_inicio }}</td>
             <td>{{ tarea.fecha_fin }}</td>
+            <!-- boton para ingresar a la tarea -->
+            <td>
+                <a href="{% url 'ver-tarea-detalle' tarea.id_tarea %}" class="btn btn-primary">Ver Detalles</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

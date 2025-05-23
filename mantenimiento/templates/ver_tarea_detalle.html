@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Ver Tarea{% endblock %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{% block content %}
+
+{{ tarea.id_tarea }}
+{{ tarea.id_mantenimiento }}
+{{ tarea.id_encargado }}
+{{ tarea.id_maquina }}
+{{ tarea.fecha_inicio }}
+{{ tarea.fecha_fin }}
+
+{% endblock %}
