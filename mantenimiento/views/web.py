@@ -9,7 +9,7 @@ from ..forms import (
     TipoMaquinaForm,
     CodigoForm,
 )
-from ..services import MaquinasService, MantenimientoService, TareaService
+from ..services import MaquinasService, MantenimientoService, TareaService, EncargadoService
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -203,11 +203,16 @@ def ver_tarea(request):
 @login_required
 def ver_tarea_detalle(request, id_tarea):
     tarea_service = TareaService()
+    mantenimiento_service = MantenimientoService()
+    encargado_service = EncargadoService()
+    maquina_service = MaquinasService()
     tarea = tarea_service.obtener_tarea_por_id(id_tarea)
-    print(tarea)
+    mantenimiento = mantenimiento_service.obtener_mantenimiento_por_id(tarea.id_mantenimiento.id_mantenimiento)
+    encargado = encargado_service.obtener_encargado_por_id(tarea.id_encargado.id_encargado)
+    maquina = maquina_service.obtener_maquina_por_id(tarea.id_maquina.id_maquina)
     if tarea is None:
         return render(request, "404.html", status=404)
-    return render(request, "ver_tarea_detalle.html", {"tarea": tarea})
+    return render(request, "ver_tarea_detalle.html", {"tarea": tarea, "mantenimiento": mantenimiento, "encargado": encargado, "maquina": maquina})
 
 
 @login_required

@@ -99,3 +99,4 @@ class Tarea(models.Model):
     # * las fechas permiten colocar valores a futuro, por lo que no es necesario tener un campo que indique el estado de la tarea
     fecha_inicio = models.DateTimeField()
     fecha_fin = models.DateTimeField()
+    completada = models.BooleanField(default=False)

@@ -1,15 +1,77 @@
 {% extends 'base.html' %}
-{% block title %}Ver Tarea{% endblock %}
+{% block title %}Detalle de Tarea{% endblock %}
 {% block navbar %}
 {% include 'navbar.html' %}
 {% endblock %}
 {% block content %}
 
-{{ tarea.id_tarea }}
-{{ tarea.id_mantenimiento }}
-{{ tarea.id_encargado }}
-{{ tarea.id_maquina }}
-{{ tarea.fecha_inicio }}
-{{ tarea.fecha_fin }}
+<div class="container mt-4">
+    <h2 class="mb-4">Detalle de la Tarea #{{ tarea.id_tarea }}</h2>
+    <div class="row">
+        <!-- Información de la Tarea -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    Información de la Tarea
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ tarea.id_tarea }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ tarea.fecha_inicio|date:"d/m/Y H:i" }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ tarea.fecha_fin|date:"d/m/Y H:i" }}</p>
+                    <p><strong>Completada:</strong>
+                        {% if tarea.completada %}
+                        <span class="badge bg-success">Sí</span>
+                        {% else %}
+                        <span class="badge bg-warning text-dark">No</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Información del Mantenimiento -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    Mantenimiento Asociado
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ mantenimiento.id_mantenimiento }}</p>
+                    <p><strong>Tipo:</strong> {{ mantenimiento.tipo_mantenimiento.tipo_mantenimiento }}</p>
+                    <p><strong>Parte de la máquina:</strong> {{ mantenimiento.parte_maquina }}</p>
+                    <p><strong>Intervalo:</strong> {{ mantenimiento.intervalo.intervalo }}</p>
+                    <p><strong>Instrucciones:</strong> {{ mantenimiento.instrucciones }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Información del Encargado -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    Encargado
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ encargado.id_encargado }}</p>
+                    <p><strong>Nombre:</strong> {{ encargado.nombre }} {{ encargado.apellido }}</p>
+                    <p><strong>Teléfono:</strong> {{ encargado.telefono }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Información de la Máquina -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    Máquina Asociada
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ maquina.id_maquina }}</p>
+                    <p><strong>Tipo:</strong> {{ maquina.tipo_maquina.tipo_maquina }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'ver-tarea' %}" class="btn btn-outline-primary mt-3">Volver a la lista de tareas</a>
+</div>
 
 {% endblock %}
