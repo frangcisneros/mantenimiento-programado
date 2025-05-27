@@ -15,6 +15,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
+from ..models import Mantenimiento, Maquina, Tarea, Encargado, OpcionesMantenimiento, OpcionesIntervalo
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 
 def es_jefe_area(user):
@@ -57,6 +62,54 @@ def panel_control(request):
     es_jefe_area = request.user.groups.filter(name="Jefes de Área").exists()
     tareas_hoy = TareaService().obtener_tareas().filter(fecha_inicio__date=date.today()).order_by("fecha_inicio")
     return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area, "tareas_hoy": tareas_hoy})
+
+@login_required
+def admin_planes_mantenimiento(request):
+    objetos = Mantenimiento.objects.all()
+    seleccionado = None
+    id_sel = request.GET.get('id')
+    if id_sel:
+        seleccionado = Mantenimiento.objects.filter(id_mantenimiento=id_sel).first()
+    return render(request, "admin_planes_mantenimiento.html", {
+        "objetos": objetos,
+        "seleccionado": seleccionado,
+    })
+
+@login_required
+def admin_maquinas(request):
+    objetos = Maquina.objects.all()
+    seleccionado = None
+    id_sel = request.GET.get('id')
+    if id_sel:
+        seleccionado = Maquina.objects.filter(id_maquina=id_sel).first()
+    return render(request, "admin_maquinas.html", {
+        "objetos": objetos,
+        "seleccionado": seleccionado,
+    })
+
+@login_required
+def admin_mantenimientos(request):
+    objetos = Tarea.objects.all()
+    seleccionado = None
+    id_sel = request.GET.get('id')
+    if id_sel:
+        seleccionado = Tarea.objects.filter(id_tarea=id_sel).first()
+    return render(request, "admin_mantenimientos.html", {
+        "objetos": objetos,
+        "seleccionado": seleccionado,
+    })
+
+@login_required
+def admin_personal(request):
+    objetos = Encargado.objects.all()
+    seleccionado = None
+    id_sel = request.GET.get('id')
+    if id_sel:
+        seleccionado = Encargado.objects.filter(id_encargado=id_sel).first()
+    return render(request, "admin_personal.html", {
+        "objetos": objetos,
+        "seleccionado": seleccionado,
+    })
 
 @user_passes_test(es_jefe_area)
 @login_required
@@ -189,7 +242,40 @@ def ver_inventario(request):
 
 @login_required
 def ver_maquina_1(request):
-    return render(request, "ver_maquina_1.html")
+    maquinas = Maquina.objects.all()
+    maquina_id = request.GET.get('id')
+    maquina_seleccionada = None
+    operario = None
+    plan_mantenimiento = None
+    tareas = {'anterior': None, 'actual': None, 'proxima': None}
+
+    if maquina_id:
+        try:
+            maquina_seleccionada = Maquina.objects.get(id_maquina=maquina_id)
+            operario = maquina_seleccionada.operario
+
+            # Plan de mantenimiento (puedes ajustar la lógica según tu modelo)
+            plan_mantenimiento = Mantenimiento.objects.filter(
+                tarea__id_maquina=maquina_seleccionada
+            ).order_by('-id_mantenimiento').first()
+
+            # Tareas relevantes
+            tareas_qs = Tarea.objects.filter(id_maquina=maquina_seleccionada).order_by('fecha_inicio')
+            ahora = timezone.now()
+            tareas['anterior'] = tareas_qs.filter(fecha_inicio__lt=ahora).last()
+            tareas['actual'] = tareas_qs.filter(fecha_inicio__lte=ahora, fecha_fin__gte=ahora).first()
+            tareas['proxima'] = tareas_qs.filter(fecha_inicio__gt=ahora).first()
+
+        except Maquina.DoesNotExist:
+            maquina_seleccionada = None
+
+    return render(request, "ver_maquina_1.html", {
+        "maquinas": maquinas,
+        "maquina_seleccionada": maquina_seleccionada,
+        "operario": operario,
+        "plan_mantenimiento": plan_mantenimiento,
+        "tareas": tareas,
+    })
 
 
 @login_required

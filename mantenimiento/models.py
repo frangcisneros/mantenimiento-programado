@@ -27,9 +27,15 @@ class OpcionesMaquina(models.Model):
 class Maquina(models.Model):
     id_maquina = models.AutoField(primary_key=True)
     tipo_maquina = models.ForeignKey(OpcionesMaquina, on_delete=models.CASCADE)
+    apodo = models.CharField(max_length=100, blank=True, null=True)
+    modelo = models.CharField(max_length=100, blank=True, null=True)
+    anio_fabricacion = models.IntegerField(blank=True, null=True)
+    anio_compra = models.IntegerField(blank=True, null=True)
+    imagen = models.ImageField(upload_to='maquinas/', blank=True, null=True)
+    operario = models.ForeignKey('Encargado', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.tipo_maquina.tipo_maquina
+        return self.apodo or str(self.id_maquina)
 
 
 # * clase opciones de mantenimiento que permite que luego podamos seleccionarlas desde la clase mantenimiento, para no hardcodear los tipos de mantenimiento

@@ -34,6 +34,10 @@ from .views.web import (
     registrar_usuario,
     verificar_codigo,
     ver_tarea_detalle,
+    admin_planes_mantenimiento,
+    admin_maquinas,
+    admin_mantenimientos,
+    admin_personal,
 )
 
 router = DefaultRouter()
@@ -65,7 +69,7 @@ urlpatterns = [
     path("crear-tarea/", crear_tarea, name="crear-tarea"),
     path("ver-inventario/", ver_inventario, name="ver-inventario"),
     path("ver-mantenimiento/", ver_mantenimiento, name="ver-mantenimiento"),
-    path("ver-maquina-1/", listar_maquinas, name="ver-maquinas-1"),
+    # path("ver-maquina-1/", listar_maquinas, name="ver-maquinas-1"),
     path("ver-maquina-2/", ver_maquina_2, name="ver-maquinas-2"),
     path("ver-tarea/", ver_tarea, name="ver-tarea"),
     path(
@@ -77,4 +81,9 @@ urlpatterns = [
     path("register/", registrar_usuario, name="register"),
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path('maquinas/', ver_maquina_1, name='ver-maquinas-1'),
+    path("admin-planes-mantenimiento/", admin_planes_mantenimiento, name="admin-planes-mantenimiento"),
+    path("admin-maquinas/", admin_maquinas, name="admin-maquinas"),
+    path("admin-mantenimientos/", admin_mantenimientos, name="admin-mantenimientos"),
+    path("admin-personal/", admin_personal, name="admin-personal"),
 ]

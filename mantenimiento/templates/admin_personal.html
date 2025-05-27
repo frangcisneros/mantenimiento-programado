@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Personal{% endblock %}
+{% block content %}
+<div class="row">
+    <!-- Lista -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-success text-white">Personal</div>
+            <div class="card-body p-0" style="max-height: 70vh; overflow-y: auto;">
+                <ul class="list-group list-group-flush">
+                    {% for persona in objetos %}
+                    <a href="?id={{ persona.id_encargado }}"
+                        class="list-group-item list-group-item-action {% if seleccionado and persona.id_encargado == seleccionado.id_encargado %}active{% endif %}">
+                        {{ persona.nombre }} {{ persona.apellido }}
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Detalles -->
+    <div class="col-md-6">
+        {% if seleccionado %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h4>Detalle del Personal</h4>
+                <div><strong>Nombre:</strong> {{ seleccionado.nombre }}</div>
+                <div><strong>Apellido:</strong> {{ seleccionado.apellido }}</div>
+                <div><strong>Teléfono:</strong> {{ seleccionado.telefono }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">Selecciona una persona para ver sus detalles.</div>
+        {% endif %}
+    </div>
+    <!-- Botones -->
+    <div class="col-md-3 d-flex flex-column align-items-center gap-3">
+        {% if seleccionado %}
+        <a href="{% url 'editar-encargado' seleccionado.id_encargado %}" class="btn btn-warning w-75"><i
+                class="bi bi-pencil"></i> Editar</a>
+        <form method="post" action="{% url 'eliminar-encargado' seleccionado.id_encargado %}" style="width: 75%;">{%
+            csrf_token %}
+            <button type="submit" class="btn btn-danger w-100"><i class="bi bi-trash"></i> Eliminar</button>
+        </form>
+        {% endif %}
+        <a href="{% url 'crear-encargado' %}" class="btn btn-success w-75"><i class="bi bi-plus-circle"></i> Crear</a>
+    </div>
+</div>
+{% endblock %}

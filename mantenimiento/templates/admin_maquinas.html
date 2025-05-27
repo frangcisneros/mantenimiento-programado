@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Máquinas{% endblock %}
+{% block content %}
+<div class="row">
+    <!-- Lista -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-warning text-dark">Máquinas</div>
+            <div class="card-body p-0" style="max-height: 70vh; overflow-y: auto;">
+                <ul class="list-group list-group-flush">
+                    {% for maquina in objetos %}
+                    <a href="?id={{ maquina.id_maquina }}"
+                        class="list-group-item list-group-item-action {% if seleccionado and maquina.id_maquina == seleccionado.id_maquina %}active{% endif %}">
+                        {{ maquina.apodo|default:maquina.id_maquina }}
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Detalles -->
+    <div class="col-md-6">
+        {% if seleccionado %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h4>Detalle de la Máquina</h4>
+                <div><strong>Apodo:</strong> {{ seleccionado.apodo }}</div>
+                <div><strong>Tipo:</strong> {{ seleccionado.tipo_maquina }}</div>
+                <div><strong>Modelo:</strong> {{ seleccionado.modelo }}</div>
+                <div><strong>Año fabricación:</strong> {{ seleccionado.anio_fabricacion }}</div>
+                <div><strong>Año compra:</strong> {{ seleccionado.anio_compra }}</div>
+                <div><strong>Operario:</strong> {{ seleccionado.operario }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">Selecciona una máquina para ver sus detalles.</div>
+        {% endif %}
+    </div>
+    <!-- Botones -->
+    <div class="col-md-3 d-flex flex-column align-items-center gap-3">
+        {% if seleccionado %}
+        <a href="{% url 'editar-maquina' seleccionado.id_maquina %}" class="btn btn-warning w-75"><i
+                class="bi bi-pencil"></i> Editar</a>
+        <form method="post" action="{% url 'eliminar-maquina' seleccionado.id_maquina %}" style="width: 75%;">{%
+            csrf_token %}
+            <button type="submit" class="btn btn-danger w-100"><i class="bi bi-trash"></i> Eliminar</button>
+        </form>
+        {% endif %}
+        <a href="{% url 'crear-maquina' %}" class="btn btn-success w-75"><i class="bi bi-plus-circle"></i> Crear</a>
+    </div>
+</div>
+{% endblock %}

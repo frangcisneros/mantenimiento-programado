@@ -1,41 +1,38 @@
 {% extends 'base.html' %}
-{% block title %}Panel de Control{% endblock %}
+{% block title %}Panel de Administrador{% endblock %}
 
 {% block content %}
 <a href="{% url 'panel-control' %}" class="text-decoration-none">
-    <h1 class="text-center my-4">Panel de Control</h1>
+    <h1 class="text-center my-4">Panel de Administrador</h1>
 </a>
 
-<div class="dashboard-grid d-grid gap-3" style=" grid-template-columns:
-        repeat(auto-fit, minmax(var(--btn-min-width, 180px), 1fr)); grid-auto-rows: minmax(var(--btn-min-height, 100px), auto); height: calc(100vh - 140px); padding: 1rem;
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="dashboard-grid d-grid gap-4" style="
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-auto-rows: minmax(120px, auto);
+        width: 100%;
+        max-width: 900px;
     ">
-    <a href="{% url 'crear-tipo-mantenimiento' %}" class="btn btn-primary btn-dashboard">
-        <i class="bi bi-wrench me-2"></i>
-        Crear Tipo de Mantenimiento
-    </a>
-    <a href="{% url 'crear-tipo-maquina' %}" class="btn btn-secondary btn-dashboard">
-        <i class="bi bi-hdd-stack-fill me-2"></i>
-        Crear Tipo de Máquina
-    </a>
-    <a href="{% url 'crear-encargado' %}" class="btn btn-success btn-dashboard">
-        <i class="bi bi-person-fill me-2"></i>
-        Crear Encargado
-    </a>
-    <a href="{% url 'crear-intervalo' %}" class="btn btn-info btn-dashboard">
-        <i class="bi bi-calendar2-week me-2"></i>
-        Crear Intervalo
-    </a>
-    <a href="{% url 'crear-mantenimiento' %}" class="btn btn-primary btn-dashboard">
-        <i class="bi bi-wrench me-2"></i>
-        Crear Mantenimiento
-    </a>
-    <a href="{% url 'crear-tarea' %}" class="btn btn-warning btn-dashboard">
-        <i class="bi bi-card-checklist me-2"></i>
-        Crear Tarea
-    </a>
-    <a href="{% url 'crear_maquina' %}" class="btn btn-secondary btn-dashboard">
-        <i class="bi bi-hdd-stack-fill me-2"></i>
-        Crear Máquina 1
-    </a>
+        <a href="{% url 'admin-planes-mantenimiento' %}"
+            class="btn btn-primary btn-dashboard d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-clipboard2-check" style="font-size: 2.5rem;"></i>
+            <span class="mt-2">Planes de Mantenimiento</span>
+        </a>
+        <a href="{% url 'admin-personal' %}"
+            class="btn btn-success btn-dashboard d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-people-fill" style="font-size: 2.5rem;"></i>
+            <span class="mt-2">Personal</span>
+        </a>
+        <a href="{% url 'admin-maquinas' %}"
+            class="btn btn-warning btn-dashboard d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-hdd-stack-fill" style="font-size: 2.5rem;"></i>
+            <span class="mt-2">Máquinas</span>
+        </a>
+        <a href="{% url 'admin-mantenimientos' %}"
+            class="btn btn-dark btn-dashboard d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-gear-fill" style="font-size: 2.5rem;"></i>
+            <span class="mt-2">Mantenimientos</span>
+        </a>
+    </div>
 </div>
 {% endblock %}

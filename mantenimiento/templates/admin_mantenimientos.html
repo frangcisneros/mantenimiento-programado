@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Mantenimientos{% endblock %}
+{% block content %}
+<div class="row">
+    <!-- Lista -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-dark text-white">Mantenimientos</div>
+            <div class="card-body p-0" style="max-height: 70vh; overflow-y: auto;">
+                <ul class="list-group list-group-flush">
+                    {% for tarea in objetos %}
+                    <a href="?id={{ tarea.id_tarea }}"
+                        class="list-group-item list-group-item-action {% if seleccionado and tarea.id_tarea == seleccionado.id_tarea %}active{% endif %}">
+                        Tarea #{{ tarea.id_tarea }}
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Detalles -->
+    <div class="col-md-6">
+        {% if seleccionado %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h4>Detalle del Mantenimiento</h4>
+                <div><strong>Mantenimiento:</strong> {{ seleccionado.id_mantenimiento }}</div>
+                <div><strong>Encargado:</strong> {{ seleccionado.id_encargado }}</div>
+                <div><strong>Máquina:</strong> {{ seleccionado.id_maquina }}</div>
+                <div><strong>Fecha inicio:</strong> {{ seleccionado.fecha_inicio }}</div>
+                <div><strong>Fecha fin:</strong> {{ seleccionado.fecha_fin }}</div>
+                <div><strong>Completada:</strong> {{ seleccionado.completada|yesno:"Sí,No" }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">Selecciona un mantenimiento para ver sus detalles.</div>
+        {% endif %}
+    </div>
+    <!-- Botones -->
+    <div class="col-md-3 d-flex flex-column align-items-center gap-3">
+        {% if seleccionado %}
+        <a href="{% url 'editar-tarea' seleccionado.id_tarea %}" class="btn btn-warning w-75"><i
+                class="bi bi-pencil"></i> Editar</a>
+        <form method="post" action="{% url 'eliminar-tarea' seleccionado.id_tarea %}" style="width: 75%;">{% csrf_token
+            %}
+            <button type="submit" class="btn btn-danger w-100"><i class="bi bi-trash"></i> Eliminar</button>
+        </form>
+        {% endif %}
+        <a href="{% url 'crear-tarea' %}" class="btn btn-success w-75"><i class="bi bi-plus-circle"></i> Crear</a>
+    </div>
+</div>
+{% endblock %}
