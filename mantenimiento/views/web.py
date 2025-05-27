@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from ..forms import (
     MaquinaForm,
     TareaForm,
@@ -15,26 +14,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
-from ..models import Maquina, Tarea
+
 
 def es_jefe_area(user):
     return user.groups.filter(name="Jefes de Área").exists()
 
-def ver_maquinas(request):
-    qs = Maquina.objects.select_related('tipo_maquina').all()
-    sel = request.GET.get('selected')
-    sel_obj = Maquina.objects.filter(pk=sel).first() if sel else None
-    return render(request, 'mantenimiento/list_detail.html', {
-        'title': 'Máquinas',
-        'object_list': qs,
-        'selected_obj': sel_obj,
-        'create_url': 'crear_maquina',
-        'edit_url': 'editar_maquina',
-        'delete_url': 'eliminar_maquina',
-    })
-
-def ver_planes(request):
-    pass
 
 @login_required
 def verificar_codigo(request):
@@ -178,10 +162,8 @@ def ver_mantenimiento(request):
 
 @login_required
 def panel_control(request):
-    hoy = timezone.localdate()
-    tareas_hoy = Tarea.objects.filter(fecha_inicio__date=hoy).order_by('fecha_inicio')
     es_jefe_area = request.user.groups.filter(name="Jefes de Área").exists()
-    return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area, "tareas_hoy": tareas_hoy})
+    return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area})
 
 
 @user_passes_test(es_jefe_area)
@@ -212,10 +194,10 @@ def ver_maquina_2(request):
 
 
 @login_required
-def ver_tareas(request):
+def ver_tarea(request):
     tarea_service = TareaService()
     tareas = tarea_service.obtener_tareas()
-    return render(request, "ver_tareas.html", {"tareas": tareas})
+    return render(request, "ver_tarea.html", {"tareas": tareas})
 
 
 @login_required
