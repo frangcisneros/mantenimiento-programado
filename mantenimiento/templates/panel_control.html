@@ -4,38 +4,69 @@
 {% block content %}
 <h1 class="text-center my-4">Panel de Control</h1>
 
-<div class="dashboard-grid d-grid gap-3" style="
-      grid-template-columns:
-        repeat(auto-fit, minmax(var(--btn-min-width, 180px), 1fr));
-      grid-auto-rows: minmax(var(--btn-min-height, 100px), auto);
-      height: calc(100vh - 140px); 
-      padding: 1rem;
-    ">
-    {% if es_jefe_area %}
-    <a href="{% url 'admin-panel' %}" class="btn btn-light btn-dashboard">
-        <i class="bi bi-person-circle me-2"></i>
-        Opciones de Administrador
-    </a>
-    {% endif %}
+<div class="row">
+    <!-- Panel lateral izquierdo -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-warning text-dark">
+                Tareas para Hoy
+            </div>
+            <div class="card-body" style="max-height: 60vh; overflow-y: auto;">
+                {% if tareas_hoy %}
+                <ul class="list-group list-group-flush">
+                    {% for tarea in tareas_hoy %}
+                    <li class="list-group-item">
+                        <strong>{{ tarea.id_mantenimiento }}</strong><br>
+                        Máquina: {{ tarea.id_maquina }}<br>
+                        Encargado: {{ tarea.id_encargado }}<br>
+                        Inicio: {{ tarea.fecha_inicio|date:"H:i" }}
+                        <a href="{% url 'ver-tarea-detalle' tarea.id_tarea %}"
+                            class="btn btn-sm btn-outline-primary mt-1">Ver</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No hay tareas programadas para hoy.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Panel principal -->
+    <div class="col-md-9">
+        <div class="dashboard-grid d-grid gap-3" style="
+            grid-template-columns:
+                repeat(auto-fit, minmax(var(--btn-min-width, 180px), 1fr));
+            grid-auto-rows: minmax(var(--btn-min-height, 100px), auto);
+            height: calc(100vh - 140px); 
+            padding: 1rem;
+        ">
+            {% if es_jefe_area %}
+            <a href="{% url 'admin-panel' %}" class="btn btn-light btn-dashboard">
+                <i class="bi bi-person-circle me-2"></i>
+                Opciones de Administrador
+            </a>
+            {% endif %}
 
-    <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success btn-dashboard">
-        <i class="bi bi-box-seam me-2"></i>
-        Ver Máquinas
-    </a>
+            <a href="{% url 'ver-maquinas-1' %}" class="btn btn-success btn-dashboard">
+                <i class="bi bi-box-seam me-2"></i>
+                Ver Máquinas
+            </a>
 
-    <a href="{% url 'ver-inventario' %}" class="btn btn-info btn-dashboard">
-        <i class="bi bi-clipboard2-data-fill me-2"></i>
-        Ver Inventario
-    </a>
+            <a href="{% url 'ver-inventario' %}" class="btn btn-info btn-dashboard">
+                <i class="bi bi-clipboard2-data-fill me-2"></i>
+                Ver Inventario
+            </a>
 
-    <a href="{% url 'ver-tarea' %}" class="btn btn-danger btn-dashboard">
-        <i class="bi bi-list-check me-2"></i>
-        Ver Tareas
-    </a>
+            <a href="{% url 'ver-tarea' %}" class="btn btn-danger btn-dashboard">
+                <i class="bi bi-list-check me-2"></i>
+                Ver Tareas
+            </a>
 
-    <a href="{% url 'ver-mantenimiento' %}" class="btn btn-dark btn-dashboard">
-        <i class="bi bi-gear-fill me-2"></i>
-        Ver Mantenimientos
-    </a>
+            <a href="{% url 'ver-mantenimiento' %}" class="btn btn-dark btn-dashboard">
+                <i class="bi bi-gear-fill me-2"></i>
+                Ver Mantenimientos
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

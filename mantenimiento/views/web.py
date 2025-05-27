@@ -9,6 +9,7 @@ from ..forms import (
     TipoMaquinaForm,
     CodigoForm,
 )
+from datetime import date
 from ..services import MaquinasService, MantenimientoService, TareaService, EncargadoService
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
@@ -50,6 +51,12 @@ def registrar_usuario(request):
         form = UserCreationForm()
     return render(request, "registration/register.html", {"form": form})
 
+
+@login_required
+def panel_control(request):
+    es_jefe_area = request.user.groups.filter(name="Jefes de Área").exists()
+    tareas_hoy = TareaService().obtener_tareas().filter(fecha_inicio__date=date.today()).order_by("fecha_inicio")
+    return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area, "tareas_hoy": tareas_hoy})
 
 @user_passes_test(es_jefe_area)
 @login_required
@@ -160,10 +167,7 @@ def ver_mantenimiento(request):
     return render(request, "ver_mantenimiento.html", {"mantenimientos": mantenimientos})
 
 
-@login_required
-def panel_control(request):
-    es_jefe_area = request.user.groups.filter(name="Jefes de Área").exists()
-    return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area})
+
 
 
 @user_passes_test(es_jefe_area)
