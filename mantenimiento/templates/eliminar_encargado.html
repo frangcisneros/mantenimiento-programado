@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    Eliminar Encargado
+{% endblock title %}
+{% block content %}
+    <h2>¿Estás seguro que deseas eliminar a {{ encargado.nombre }} {{ encargado.apellido }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'admin-personal' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock content %}

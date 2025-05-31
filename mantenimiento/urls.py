@@ -38,6 +38,7 @@ from .views.web import (
     admin_maquinas,
     admin_mantenimientos,
     admin_personal,
+    eliminar_encargado,
 )
 
 router = DefaultRouter()
@@ -86,4 +87,6 @@ urlpatterns = [
     path("admin-maquinas/", admin_maquinas, name="admin-maquinas"),
     path("admin-mantenimientos/", admin_mantenimientos, name="admin-mantenimientos"),
     path("admin-personal/", admin_personal, name="admin-personal"),
+    path("editar-encargado/<int:id_encargado>/", crear_encargado, name="editar-encargado"),
+    path("eliminar-encargado/<int:id_encargado>/", eliminar_encargado, name="eliminar-encargado"),
 ]

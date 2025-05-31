@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    Editar Encargado
+{% endblock title %}
+{% block content %}
+    <h1>Editar Encargado</h1>
+    <form method="post" novalidate>
+        {% csrf_token %} {{ form.non_field_errors }}
+        <div class="mb-3">{{ form.nombre.label_tag }} {{ form.nombre }} {{ form.nombre.errors }}</div>
+        <div class="mb-3">{{ form.apellido.label_tag }} {{ form.apellido }} {{ form.apellido.errors }}</div>
+        <div class="mb-3">{{ form.telefono.label_tag }} {{ form.telefono }} {{ form.telefono.errors }}</div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'admin-personal' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock content %}

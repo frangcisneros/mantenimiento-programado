@@ -247,7 +247,8 @@ def ver_maquina_1(request):
     maquina_seleccionada = None
     operario = None
     plan_mantenimiento = None
-    tareas = {'anterior': None, 'actual': None, 'proxima': None}
+    from typing import Optional
+    tareas: dict[str, Optional[Tarea]] = {'anterior': None, 'actual': None, 'proxima': None}
 
     if maquina_id:
         try:
@@ -289,6 +290,25 @@ def ver_tarea(request):
     tareas = tarea_service.obtener_tareas()
     return render(request, "ver_tarea.html", {"tareas": tareas})
 
+@login_required
+def eliminar_encargado(request, id_encargado):
+    encargado = Encargado.objects.get(id_encargado=id_encargado)
+    if request.method == "POST":
+        encargado.delete()
+        return redirect("admin-personal")
+    return render(request, "confirmar_eliminar_encargado.html", {"encargado": encargado})
+
+@login_required
+def editar_encargado(request, id_encargado):
+    encargado = Encargado.objects.get(id_encargado=id_encargado)
+    if request.method == "POST":
+        form = EncargadoForm(request.POST, instance=encargado)
+        if form.is_valid():
+            form.save()
+            return redirect("admin-personal")
+    else:
+        form = EncargadoForm(instance=encargado)
+    return render(request, "editar_encargado.html", {"form": form, "encargado": encargado})
 
 @login_required
 def ver_tarea_detalle(request, id_tarea):
@@ -297,11 +317,11 @@ def ver_tarea_detalle(request, id_tarea):
     encargado_service = EncargadoService()
     maquina_service = MaquinasService()
     tarea = tarea_service.obtener_tarea_por_id(id_tarea)
+    if tarea is None or tarea.id_mantenimiento is None or tarea.id_encargado is None or tarea.id_maquina is None:
+        return render(request, "404.html", status=404)
     mantenimiento = mantenimiento_service.obtener_mantenimiento_por_id(tarea.id_mantenimiento.id_mantenimiento)
     encargado = encargado_service.obtener_encargado_por_id(tarea.id_encargado.id_encargado)
     maquina = maquina_service.obtener_maquina_por_id(tarea.id_maquina.id_maquina)
-    if tarea is None:
-        return render(request, "404.html", status=404)
     return render(request, "ver_tarea_detalle.html", {"tarea": tarea, "mantenimiento": mantenimiento, "encargado": encargado, "maquina": maquina})
 
 
