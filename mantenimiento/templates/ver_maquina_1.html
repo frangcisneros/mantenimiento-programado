@@ -1,115 +1,140 @@
-{% extends 'base.html' %}
-{% block title %}Todas las Máquinas{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+    Todas las Máquinas
+{% endblock title %}
 {% block navbar %}
-{% include 'navbar.html' %}
-{% endblock %}
+    {% include "navbar.html" %}
+{% endblock navbar %}
 {% block content %}
-<div class="row">
-    <!-- Panel lateral izquierdo: Lista de máquinas -->
-    <div class="col-md-3 mb-4">
-        <div class="card shadow h-100">
-            <div class="card-header bg-primary text-white">
-                Máquinas
-            </div>
-            <div class="card-body p-0" style="max-height: 70vh; overflow-y: auto;">
-                <ul class="list-group list-group-flush">
-                    {% for maquina in maquinas %}
-                    <a href="{% url 'ver-maquinas-1' %}?id={{ maquina.id_maquina }}"
-                        class="list-group-item list-group-item-action {% if maquina_seleccionada and maquina.id_maquina == maquina_seleccionada.id_maquina %}active{% endif %}">
-                        {{ maquina.apodo|default:maquina.id_maquina }}
-                    </a>
-                    {% endfor %}
-                </ul>
+    <style>
+    .scrollable-card-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    .machine-img {
+        max-height: 150px;
+        height: 150px;
+        width: 150px;
+        object-fit: contain;
+    }
+    .machine-placeholder {
+        font-size: 6rem;
+        color: #ccc;
+    }
+    </style>
+    <div class="row">
+        <!-- Panel lateral izquierdo: Lista de máquinas -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-primary text-white">Máquinas</div>
+                <div class="card-body p-0 scrollable-card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for maquina in maquinas %}
+                            <a href="{% url "ver-maquinas-1" %}?id={{ maquina.id_maquina }}"
+                               class="list-group-item list-group-item-action {% if maquina_seleccionada and maquina.id_maquina == maquina_seleccionada.id_maquina %}active{% endif %}">
+                                {{ maquina.apodo|default:maquina.id_maquina }}
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Panel derecho: Detalle de la máquina -->
-    <div class="col-md-9">
-        {% if maquina_seleccionada %}
-        <div class="card shadow mb-4">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <!-- Imagen de la máquina -->
-                    <div class="col-md-3 text-center">
-                        {% if maquina_seleccionada.imagen %}
-                        <img src="{{ maquina_seleccionada.imagen.url }}" class="img-fluid rounded mb-2"
-                            style="max-height: 150px;" alt="Imagen de la máquina">
-                        {% else %}
-                        <i class="bi bi-image" style="font-size: 6rem; color: #ccc;"></i>
-                        {% endif %}
-                    </div>
-                    <!-- Datos principales -->
-                    <div class="col-md-5">
-                        <h5>{{ maquina_seleccionada.apodo|default:"Sin apodo" }}</h5>
-                        <p class="mb-1"><strong>Tipo:</strong> {{ maquina_seleccionada.tipo_maquina }}</p>
-                        <p class="mb-1"><strong>Modelo:</strong> {{ maquina_seleccionada.modelo|default:"-" }}</p>
-                        <div class="row">
-                            <div class="col">
-                                <small><strong>Año fabricación:</strong> {{
-                                    maquina_seleccionada.anio_fabricacion|default:"-" }}</small>
+        <!-- Panel derecho: Detalle de la máquina -->
+        <div class="col-md-9">
+            {% if maquina_seleccionada %}
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <!-- Imagen de la máquina -->
+                            <div class="col-md-3 text-center">
+                                {% if maquina_seleccionada.imagen %}
+                                    <img src="{{ maquina_seleccionada.imagen.url }}"
+                                         class="img-fluid rounded mb-2 machine-img"
+                                         alt="Imagen de la máquina"
+                                         height="150"
+                                         width="150">
+                                {% else %}
+                                    <i class="bi bi-image machine-placeholder"></i>
+                                {% endif %}
                             </div>
-                            <div class="col">
-                                <small><strong>Año compra:</strong> {{ maquina_seleccionada.anio_compra|default:"-"
-                                    }}</small>
+                            <!-- Datos principales -->
+                            <div class="col-md-5">
+                                <h5>{{ maquina_seleccionada.apodo|default:"Sin apodo" }}</h5>
+                                <p class="mb-1">
+                                    <strong>Tipo:</strong> {{ maquina_seleccionada.tipo_maquina }}
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Modelo:</strong> {{ maquina_seleccionada.modelo|default:"-" }}
+                                </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <small><strong>Año fabricación:</strong> {{
+                                        maquina_seleccionada.anio_fabricacion|default:"-" }}</small>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>Año compra:</strong> {{ maquina_seleccionada.anio_compra|default:"-"
+                                        }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Operario -->
+                            <div class="col-md-4">
+                                <p class="mb-1">
+                                    <strong>Operario:</strong>
+                                </p>
+                                <p>{{ operario.nombre }} {{ operario.apellido }}</p>
                             </div>
                         </div>
-                    </div>
-                    <!-- Operario -->
-                    <div class="col-md-4">
-                        <p class="mb-1"><strong>Operario:</strong></p>
-                        <p>{{ operario.nombre }} {{ operario.apellido }}</p>
+                        <hr>
+                        <!-- Plan de mantenimiento -->
+                        <div class="row align-items-center mb-2">
+                            <div class="col-md-4">
+                                <h6 class="mb-0">Plan de Mantenimiento</h6>
+                                <span>{{ plan_mantenimiento.nombre }}</span>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url "ver-mantenimiento" %}?id={{ plan_mantenimiento.id_mantenimiento }}"
+                                   class="btn btn-outline-primary btn-sm">Detalles</a>
+                            </div>
+                        </div>
+                        <!-- Ver tareas -->
+                        <div class="row align-items-center mb-2">
+                            <div class="col-md-4">
+                                <h6 class="mb-0">Ver Tareas</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url "ver-tarea" %}?maquina={{ maquina_seleccionada.id_maquina }}"
+                                   class="btn btn-outline-secondary btn-sm">Ver todas</a>
+                            </div>
+                        </div>
+                        <!-- Lista de tareas relevantes -->
+                        <ul class="list-group mb-3">
+                            {% if tareas.anterior %}
+                                <li class="list-group-item">
+                                    <strong>Anterior:</strong> {{ tareas.anterior.fecha_inicio|date:"d/m/Y H:i" }} - {{
+                                    tareas.anterior.id_tarea }}
+                                </li>
+                            {% endif %}
+                            {% if tareas.actual %}
+                                <li class="list-group-item">
+                                    <strong>Actual:</strong> {{ tareas.actual.fecha_inicio|date:"d/m/Y H:i" }} - {{
+                                    tareas.actual.id_tarea }}
+                                </li>
+                            {% endif %}
+                            {% if tareas.proxima %}
+                                <li class="list-group-item">
+                                    <strong>Próxima:</strong> {{ tareas.proxima.fecha_inicio|date:"d/m/Y H:i" }} - {{
+                                    tareas.proxima.id_tarea }}
+                                </li>
+                            {% endif %}
+                        </ul>
+                        <a href="{% url "crear-tarea" %}?maquina={{ maquina_seleccionada.id_maquina }}"
+                           class="btn btn-success">Crear una tarea</a>
                     </div>
                 </div>
-                <hr>
-                <!-- Plan de mantenimiento -->
-                <div class="row align-items-center mb-2">
-                    <div class="col-md-4">
-                        <h6 class="mb-0">Plan de Mantenimiento</h6>
-                        <span>{{ plan_mantenimiento.nombre }}</span>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{% url 'ver-mantenimiento' %}?id={{ plan_mantenimiento.id_mantenimiento }}"
-                            class="btn btn-outline-primary btn-sm">Detalles</a>
-                    </div>
-                </div>
-                <!-- Ver tareas -->
-                <div class="row align-items-center mb-2">
-                    <div class="col-md-4">
-                        <h6 class="mb-0">Ver Tareas</h6>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{% url 'ver-tarea' %}?maquina={{ maquina_seleccionada.id_maquina }}"
-                            class="btn btn-outline-secondary btn-sm">Ver todas</a>
-                    </div>
-                </div>
-                <!-- Lista de tareas relevantes -->
-                <ul class="list-group mb-3">
-                    {% if tareas.anterior %}
-                    <li class="list-group-item">
-                        <strong>Anterior:</strong> {{ tareas.anterior.fecha_inicio|date:"d/m/Y H:i" }} - {{
-                        tareas.anterior.id_tarea }}
-                    </li>
-                    {% endif %}
-                    {% if tareas.actual %}
-                    <li class="list-group-item">
-                        <strong>Actual:</strong> {{ tareas.actual.fecha_inicio|date:"d/m/Y H:i" }} - {{
-                        tareas.actual.id_tarea }}
-                    </li>
-                    {% endif %}
-                    {% if tareas.proxima %}
-                    <li class="list-group-item">
-                        <strong>Próxima:</strong> {{ tareas.proxima.fecha_inicio|date:"d/m/Y H:i" }} - {{
-                        tareas.proxima.id_tarea }}
-                    </li>
-                    {% endif %}
-                </ul>
-                <a href="{% url 'crear-tarea' %}?maquina={{ maquina_seleccionada.id_maquina }}"
-                    class="btn btn-success">Crear una tarea</a>
-            </div>
+            {% else %}
+                <div class="alert alert-info">Selecciona una máquina para ver sus detalles.</div>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="alert alert-info">Selecciona una máquina para ver sus detalles.</div>
-        {% endif %}
     </div>
-</div>
-{% endblock %}
+{% endblock content %}

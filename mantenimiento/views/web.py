@@ -113,17 +113,28 @@ def admin_personal(request):
 
 @user_passes_test(es_jefe_area)
 @login_required
-def crear_maquina(request):
-    if request.method == "POST":
-        form = MaquinaForm(request.POST)
-        if form.is_valid():
-            nueva = form.save()
-            # redirige a donde prefieras; aquí al panel
-            return redirect("panel-control")
+def crear_maquina(request, id_maquina=None):
+    if id_maquina:
+        maquina = Maquina.objects.get(id_maquina=id_maquina)
     else:
-        form = MaquinaForm()
-    return render(request, "crear_maquina.html", {"form": form})
+        maquina = None
 
+    if request.method == "POST":
+        form = MaquinaForm(request.POST, instance=maquina)
+        if form.is_valid():
+            form.save()
+            return redirect("admin-maquinas")
+    else:
+        form = MaquinaForm(instance=maquina)
+    return render(request, "crear_maquina.html", {"form": form, "maquina": maquina})
+
+@login_required
+def eliminar_maquina(request, id_maquina):
+    maquina = Maquina.objects.get(id_maquina=id_maquina)
+    if request.method == "POST":
+        maquina.delete()
+        return redirect("admin-maquinas")
+    return render(request, "eliminar_maquina.html", {"maquina": maquina})
 
 @user_passes_test(es_jefe_area)
 @login_required

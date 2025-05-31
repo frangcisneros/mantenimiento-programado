@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    Eliminar Máquina
+{% endblock title %}
+{% block content %}
+    <h2>¿Estás seguro que deseas eliminar la máquina {{ maquina.apodo|default:maquina.id_maquina }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'admin-maquinas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock content %}
