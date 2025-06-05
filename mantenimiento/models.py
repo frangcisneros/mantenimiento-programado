@@ -55,7 +55,7 @@ class OpcionesIntervalo(models.Model):
         return self.intervalo
 
 
-# * la clase mantenimiento describe el tipo de mantenimiento, este despues puede ser asignado a una tarea
+# * la clase mantenimiento describe los planes de mantenimiento, este despues puede ser asignado a una tarea
 class Mantenimiento(models.Model):
     id_mantenimiento = models.AutoField(primary_key=True)
     # * el intervalo dicta cada cuanto se hace el mantenimiento

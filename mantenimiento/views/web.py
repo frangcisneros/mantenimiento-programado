@@ -111,6 +111,18 @@ def admin_personal(request):
         "seleccionado": seleccionado,
     })
 
+@login_required
+def ver_planes_mantenimiento(request):
+    mantenimientos = Mantenimiento.objects.all()
+    seleccionado = None
+    id_sel = request.GET.get('id')
+    if id_sel:
+        seleccionado = Mantenimiento.objects.filter(id_mantenimiento=id_sel).first()
+    return render(request, "ver_planes_mantenimiento.html", {
+        "mantenimientos": mantenimientos,
+        "seleccionado": seleccionado,
+    })
+
 @user_passes_test(es_jefe_area)
 @login_required
 def crear_maquina(request, id_maquina=None):
@@ -224,11 +236,7 @@ def listar_maquinas(request):
     )
 
 
-@login_required
-def ver_mantenimiento(request):
-    mantenimiento_service = MantenimientoService()
-    mantenimientos = mantenimiento_service.obtener_mantenimientos()
-    return render(request, "ver_mantenimiento.html", {"mantenimientos": mantenimientos})
+
 
 
 
@@ -339,3 +347,23 @@ def ver_tarea_detalle(request, id_tarea):
 @login_required
 def admin_panel(request):
     return render(request, "admin_panel.html")
+
+@login_required
+def editar_plan_mantenimiento(request, id_mantenimiento):
+    mantenimiento = Mantenimiento.objects.get(id_mantenimiento=id_mantenimiento)
+    if request.method == "POST":
+        form = MantenimientoForm(request.POST, instance=mantenimiento)
+        if form.is_valid():
+            form.save()
+            return redirect("admin-planes-mantenimiento")
+    else:
+        form = MantenimientoForm(instance=mantenimiento)
+    return render(request, "editar_plan_mantenimiento.html", {"form": form, "mantenimiento": mantenimiento})
+
+@login_required
+def eliminar_plan_mantenimiento(request, id_mantenimiento):
+    mantenimiento = Mantenimiento.objects.get(id_mantenimiento=id_mantenimiento)
+    if request.method == "POST":
+        mantenimiento.delete()
+        return redirect("admin-planes-mantenimiento")
+    return render(request, "confirmar_eliminar_plan_mantenimiento.html", {"mantenimiento": mantenimiento})

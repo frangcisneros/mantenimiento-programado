@@ -20,7 +20,7 @@ from .views.web import (
     crear_maquina_2,
     crear_tarea,
     ver_inventario,
-    ver_mantenimiento,
+    ver_planes_mantenimiento,
     ver_maquina_1,
     ver_maquina_2,
     ver_tarea,
@@ -40,6 +40,8 @@ from .views.web import (
     admin_personal,
     eliminar_encargado,
     eliminar_maquina,
+    editar_plan_mantenimiento,
+    eliminar_plan_mantenimiento,
 )
 
 router = DefaultRouter()
@@ -52,9 +54,7 @@ router.register(r"piezas_utilizadas", PiezasUtilizadasViewSet)
 
 urlpatterns = [
     # ——— RUTAS DE LA API ——————————————————————————————————
-    # List/Create/Update/Delete de tus modelos
     path("api/", include(router.urls)),
-    # Ruta extra para el APIView de usar pieza
     # ——— RUTAS DE LA INTERFAZ WEB —————————————————————————
     path("panel-control/", panel_control, name="panel-control"),
     path(
@@ -70,8 +70,7 @@ urlpatterns = [
     path("crear-maquina-2/", crear_maquina_2, name="crear-maquina_2"),
     path("crear-tarea/", crear_tarea, name="crear-tarea"),
     path("ver-inventario/", ver_inventario, name="ver-inventario"),
-    path("ver-mantenimiento/", ver_mantenimiento, name="ver-mantenimiento"),
-    # path("ver-maquina-1/", listar_maquinas, name="ver-maquinas-1"),
+    path("ver-planes-mantenimiento/", ver_planes_mantenimiento, name="ver-planes-mantenimiento"),
     path("ver-maquina-2/", ver_maquina_2, name="ver-maquinas-2"),
     path("ver-tarea/", ver_tarea, name="ver-tarea"),
     path(
@@ -93,4 +92,7 @@ urlpatterns = [
     path("crear-maquina/", crear_maquina, name="crear-maquina"),
     path("editar-maquina/<int:id_maquina>/", crear_maquina, name="editar-maquina"),
     path("eliminar-maquina/<int:id_maquina>/", eliminar_maquina, name="eliminar-maquina"),
+    path("editar-plan-mantenimiento/<int:id_mantenimiento>/", editar_plan_mantenimiento, name="editar-plan-mantenimiento"),
+    path("eliminar-plan-mantenimiento/<int:id_mantenimiento>/", eliminar_plan_mantenimiento, name="eliminar-plan-mantenimiento"),
+
 ]

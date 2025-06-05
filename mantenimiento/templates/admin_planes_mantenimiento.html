@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+    Planes de Mantenimiento
+{% endblock title %}
+{% block navbar %}
+    {% include "navbar.html" %}
+{% endblock navbar %}
+{% block content %}
+    <style>
+        .card-body-scroll {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .form-width-75 {
+            width: 75%;
+        }
+    </style>
+    <div class="row">
+        <!-- Lista -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-primary text-white">Planes</div>
+                <div class="card-body p-0 card-body-scroll">
+                    <ul class="list-group list-group-flush">
+                        {% for plan in objetos %}
+                            <a href="?id={{ plan.id_mantenimiento }}"
+                               class="list-group-item list-group-item-action {% if seleccionado and plan.id_mantenimiento == seleccionado.id_mantenimiento %}active{% endif %}">
+                                {{ plan.tipo_mantenimiento }}
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Detalles -->
+        <div class="col-md-6">
+            {% if seleccionado %}
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <h4>Detalle del Plan</h4>
+                        <div>
+                            <strong>Tipo:</strong> {{ seleccionado.tipo_mantenimiento }}
+                        </div>
+                        <div>
+                            <strong>Intervalo:</strong> {{ seleccionado.intervalo }}
+                        </div>
+                        <div>
+                            <strong>Parte máquina:</strong> {{ seleccionado.parte_maquina }}
+                        </div>
+                        <div>
+                            <strong>Instrucciones:</strong> {{ seleccionado.instrucciones }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info">Selecciona un plan para ver sus detalles.</div>
+            {% endif %}
+        </div>
+        <!-- Botones -->
+        <div class="col-md-3 d-flex flex-column align-items-center gap-3">
+            {% if seleccionado %}
+                <a href="{% url 'editar-plan-mantenimiento' seleccionado.id_mantenimiento %}"
+                   class="btn btn-warning w-75"><i class="bi bi-pencil"></i> Editar</a>
+                <form method="post"
+                      action="{% url 'eliminar-plan-mantenimiento' seleccionado.id_mantenimiento %}"
+                      class="form-width-75">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                </form>
+            {% endif %}
+        <a href="{% url 'crear-mantenimiento' %}" class="btn btn-success w-75"><i class="bi bi-plus-circle"></i>
+    Crear</a>
+</div>
+</div>
+{% endblock content %}
