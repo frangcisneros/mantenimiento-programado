@@ -42,6 +42,7 @@ from .views.web import (
     eliminar_maquina,
     editar_plan_mantenimiento,
     eliminar_plan_mantenimiento,
+    ver_calendario,
 )
 
 router = DefaultRouter()
@@ -94,5 +95,5 @@ urlpatterns = [
     path("eliminar-maquina/<int:id_maquina>/", eliminar_maquina, name="eliminar-maquina"),
     path("editar-plan-mantenimiento/<int:id_mantenimiento>/", editar_plan_mantenimiento, name="editar-plan-mantenimiento"),
     path("eliminar-plan-mantenimiento/<int:id_mantenimiento>/", eliminar_plan_mantenimiento, name="eliminar-plan-mantenimiento"),
-
+    path("ver-calendario/", ver_calendario, name="ver-calendario"),
 ]

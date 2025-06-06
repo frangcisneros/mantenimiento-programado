@@ -64,6 +64,21 @@ def panel_control(request):
     return render(request, "panel_control.html", {"es_jefe_area": es_jefe_area, "tareas_hoy": tareas_hoy})
 
 @login_required
+def ver_calendario(request):
+    tareas_qs = Tarea.objects.all().order_by('fecha_inicio')
+    tareas = []
+    for tarea in tareas_qs:
+        tareas.append({
+            "id": tarea.id_tarea,
+            "title": f"Tarea #{tarea.id_tarea} - {tarea.id_mantenimiento.tipo_mantenimiento}",
+            "start": tarea.fecha_inicio.isoformat(),
+            "end": tarea.fecha_fin.isoformat(),
+        })
+    return render(request, "ver_calendario.html", {
+        "tareas": tareas,
+    })
+
+@login_required
 def admin_planes_mantenimiento(request):
     objetos = Mantenimiento.objects.all()
     seleccionado = None

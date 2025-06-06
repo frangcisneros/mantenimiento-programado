@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}
+    Todas las Máquinas
+{% endblock title %}
+{% block navbar %}
+    {% include "navbar.html" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="container mt-4">
+        <h2>Calendario de Mantenimientos</h2>
+        <div class="mb-2">
+            <button id="btnHoy" class="btn btn-primary btn-sm">Hoy</button>
+            <button id="btnProxima" class="btn btn-success btn-sm">Ir a próxima tarea</button>
+        </div>
+        <div id="calendar"></div>
+    </div>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+          rel="stylesheet" />
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        // Tus tareas deben venir del backend como una lista de objetos
+        // Por ejemplo: [{'title': 'Tarea 1', 'start': '2024-06-10'}, ...]
+        var tareas = {{ tareas|safe }};
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: tareas
+            });
+            calendar.render();
+
+            // Botón Hoy
+            document.getElementById('btnHoy').onclick = function() {
+                calendar.today();
+            };
+
+            // Botón Próxima tarea
+            document.getElementById('btnProxima').onclick = function() {
+                var hoy = new Date();
+                var proxima = null;
+                tareas.forEach(function(tarea) {
+                    var fecha = new Date(tarea.start);
+                    if (fecha >= hoy && (!proxima || fecha < new Date(proxima.start))) {
+                        proxima = tarea;
+                    }
+                });
+                if (proxima) {
+                    calendar.gotoDate(proxima.start);
+                } else {
+                    alert('No hay próximas tareas.');
+                }
+            };
+        });
+    </script>
+{% endblock content %}
